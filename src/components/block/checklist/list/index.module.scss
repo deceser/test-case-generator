@@ -1,0 +1,84 @@
+@import "../../../../styles/variables";
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $padding-20;
+
+  width: 100%;
+  height: auto;
+
+  background: $color-backgound-list;
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(50px);
+  border-radius: 20px;
+
+  h4 {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 140%;
+
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .checklist__top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    height: 50px;
+
+    background: transparent;
+
+    .top__left {
+      display: flex;
+      gap: $gap-35;
+      align-items: center;
+      margin-left: 15px;
+      height: 100%;
+    }
+
+    .top__right {
+      display: flex;
+      gap: $gap-10;
+      align-items: center;
+      margin-right: 20px;
+    }
+  }
+
+  .checklist__bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    height: 50px;
+
+    .bottom__left {
+      display: flex;
+      gap: $gap-35;
+      align-items: center;
+    }
+
+    .bottom__right {
+      display: flex;
+      gap: $gap-10;
+      align-items: center;
+    }
+  }
+
+  .newItem__visible {
+    width: 100%;
+    display: flex;
+  }
+
+  .newItem__hidden {
+    width: 100%;
+    display: none;
+  }
+}

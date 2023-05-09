@@ -1,0 +1,83 @@
+// color
+
+$color-body: radial-gradient(
+    41.78% 41.61% at 85.03% 64.87%,
+    rgba(124, 98, 228, 0.18) 0%,
+    rgba(112, 89, 207, 0.14) 25.13%,
+    rgba(0, 0, 0, 0) 100%
+  ),
+  radial-gradient(
+    47.42% 73.96% at 85.65% 35.87%,
+    rgba(56, 30, 158, 0.4) 0%,
+    rgba(0, 0, 0, 0) 100%
+  ),
+  radial-gradient(
+    18.05% 29.41% at 73.7% 38.85%,
+    rgba(222, 61, 236, 0.1) 0%,
+    rgba(177, 49, 188, 0.1) 33.35%,
+    rgba(0, 0, 0, 0) 100%
+  ),
+  radial-gradient(
+    30.12% 30.12% at 15.47% 44.11%,
+    rgba(22, 25, 80, 0.4) 0%,
+    rgba(0, 0, 0, 0) 100%
+  ),
+  radial-gradient(
+    47.84% 74.65% at 9.06% 35.72%,
+    rgba(45, 255, 243, 0.4) 0%,
+    rgba(0, 0, 0, 0) 100%
+  ),
+  #131414;
+
+$color-black: #111111;
+$color-white: #ffffff;
+$color-gray: rgba(51, 51, 51, 0.2);
+$color-disabled: #666666;
+$color-dark-gray: #333333;
+$color-error: #df6363;
+$color-lilac: #8067e4;
+$color-item: rgba(255, 255, 255, 0.1);
+$color-icon: rgba(255, 255, 255, 0.5);
+$color-light-gray: #a4a5a8;
+$color-mint: #00cbbf;
+$color-backgound-list: linear-gradient(
+    98.86deg,
+    rgba(65, 65, 110, 0.2) -0.02%,
+    rgba(51, 51, 51, 0.2) 99.98%
+  ),
+  linear-gradient(0deg, rgba(10, 11, 11, 0.2), rgba(10, 11, 11, 0.2)),
+  rgba(255, 255, 255, 0.1);
+$color-backgound-textfield: linear-gradient(
+  98.86deg,
+  rgba(65, 65, 110, 0.2) -0.02%,
+  rgba(51, 51, 51, 0.2) 99.98%
+);
+$color-backgound-textfield-focus: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.1)
+  ),
+  linear-gradient(
+    98.86deg,
+    rgba(65, 65, 110, 0.2) -0.02%,
+    rgba(51, 51, 51, 0.2) 99.98%
+  );
+
+// offsets
+
+$gap-5: 5px;
+$gap-10: 10px;
+$gap-15: 15px;
+$gap-20: 20px;
+$gap-25: 25px;
+$gap-30: 30px;
+$gap-35: 35px;
+$gap-40: 40px;
+$gap-45: 45px;
+$gap-50: 50px;
+
+$padding-15: 15px;
+$padding-20: 20px;
+$padding-25: 25px;
+$padding-40: 40px;
+$padding-50: 50px;

@@ -1,0 +1,54 @@
+@import "../../../styles/variables";
+
+.checkbox {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  width: 22px;
+
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background-color: inherit;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      border: none;
+    }
+  }
+
+  input {
+    opacity: 0;
+    cursor: pointer;
+
+    &:checked ~ .checkmark {
+      background-color: $color-lilac;
+      border: none;
+    }
+  }
+
+  //   &:hover input ~ .checkmark {
+  //     background-color: #ccc;
+  //   }
+
+  input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .checkmark:after {
+    left: 8px;
+    top: 4px;
+    width: 5px;
+    height: 10px;
+    border: solid $color-white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
+}

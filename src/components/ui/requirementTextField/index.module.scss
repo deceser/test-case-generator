@@ -1,0 +1,54 @@
+@import "../../../styles/variables";
+
+.wrapper__textarea {
+  width: 100%;
+  height: 300px;
+  position: relative;
+
+  .textarea {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: $padding-20;
+
+    width: 100%;
+    height: 100%;
+
+    background: $color-backgound-textfield;
+    border: 2px solid $color-item;
+    border-radius: 20px;
+    backdrop-filter: blur(50px);
+
+    font-weight: 400;
+    font-size: 18px;
+    color: $color-white;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: left;
+
+    resize: none;
+    overflow: hidden;
+    outline: none;
+
+    &:focus {
+      background: $color-backgound-textfield-focus;
+
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(50px);
+
+      border-radius: 20px;
+    }
+  }
+
+  .button__textarea {
+    display: flex;
+    position: absolute;
+    padding: $padding-20;
+    top: 0;
+    right: 0;
+  }
+
+  .button__hidden {
+    display: none;
+  }
+}

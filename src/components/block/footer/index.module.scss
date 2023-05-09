@@ -1,0 +1,55 @@
+@import "../../../styles/variables";
+
+.footer {
+  width: 100%;
+  height: 283px;
+  padding: $padding-40;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background: $color-black;
+  backdrop-filter: blur(50px);
+
+  .footer_up {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .footer_up_left {
+      display: flex;
+      align-items: center;
+      gap: $gap-10;
+
+      .brandname {
+      }
+    }
+
+    .footer_up_right {
+      display: flex;
+      align-items: center;
+      gap: $gap-40;
+
+      a {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .footer_bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    h4 {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 120%;
+      letter-spacing: -0.02em;
+
+      /* white 20% */
+
+      color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}

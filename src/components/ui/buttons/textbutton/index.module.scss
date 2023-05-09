@@ -1,0 +1,53 @@
+@import "../../../../styles/variables";
+
+.button__text {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: $gap-10;
+
+  height: 44px;
+
+  border-radius: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 140%;
+  text-align: center;
+
+  color: $color-white;
+
+  .icon {
+    display: flex;
+    fill: $color-white;
+    transition: ease-in-out 0.3s;
+  }
+
+  &:hover {
+    color: $color-mint;
+    transition: ease-in-out 0.5s;
+
+    .icon {
+      fill: $color-mint;
+    }
+  }
+
+  &:disabled {
+    color: $color-disabled;
+    cursor: default;
+
+    &:hover {
+      color: $color-disabled;
+      background: none;
+    }
+
+    .icon {
+      fill: $color-disabled;
+    }
+  }
+}

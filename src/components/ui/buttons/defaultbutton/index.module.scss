@@ -1,0 +1,113 @@
+@import "../../../../styles/variables";
+
+.button__default__main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 36px;
+  gap: $gap-10;
+
+  //   width: 228px;
+  height: 66px;
+
+  border: 2px solid $color-lilac;
+  border-radius: 100px;
+  background: none;
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
+
+  font-family: "Satoshi";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+
+  text-align: center;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  color: $color-lilac;
+
+  &:hover {
+    transition: ease-in-out 0.5s;
+    color: $color-white;
+  }
+
+  &:active {
+    transition: ease-in-out 0.5s;
+    color: #634acb;
+  }
+
+  &:disabled {
+    color: rgba(128, 103, 228, 0.4);
+    cursor: default;
+
+    &:hover {
+      background: none;
+    }
+
+    &:active {
+      background: $color-lilac;
+    }
+  }
+}
+
+.button__default__secondary {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 36px;
+  gap: $gap-10;
+
+  // width: 228px;
+  height: 66px;
+
+  background: $color-gray;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
+
+  font-family: "Satoshi";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  text-transform: uppercase;
+
+  color: $color-black;
+
+  background: $color-lilac;
+  border-radius: 100px;
+
+  &:hover {
+    background: $color-lilac;
+    color: $color-white;
+    box-shadow: 0px 2px 20px #634acb;
+    transition: ease-in-out 0.5s;
+  }
+
+  &:active {
+    background: #634acb;
+    color: $color-black;
+    transition: ease-in-out 0.5s;
+  }
+
+  &:disabled {
+    background: #8067e4;
+    color: $color-disabled;
+    cursor: default;
+    box-shadow: none;
+
+    &:hover {
+      background: #8067e4;
+      box-shadow: none;
+    }
+
+    &:active {
+      background: $color-gray;
+    }
+  }
+}

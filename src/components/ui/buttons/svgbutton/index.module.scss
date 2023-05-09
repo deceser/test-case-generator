@@ -1,0 +1,23 @@
+@import "../../../../styles/variables";
+
+.svg__button {
+  cursor: pointer;
+  fill: $color-icon;
+  transition: ease-in-out 0.3s;
+  background: none;
+  border: none;
+
+  &:hover {
+    fill: $color-mint;
+    transition: ease-in-out 0.5s;
+  }
+
+  &:focus {
+    fill: $color-mint;
+  }
+
+  &:disabled {
+    fill: $color-dark-gray;
+    cursor: default;
+  }
+}
