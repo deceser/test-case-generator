@@ -52,22 +52,17 @@ const MainPage = () => {
             </div>
             <div>
               <ParagraphUi>
-                Easily generate and export checklists and test cases. Get more
-                relevant results by entering all the required data. Find more
-                information about &nbsp;
+                Easily generate and export checklists and test cases. Get more relevant results by entering all the required data.
+                Find more information about &nbsp;
                 <NavLink>how it works</NavLink>
               </ParagraphUi>
             </div>
           </div>
           <div className={styles.right}>
-            <TextFieldUi
-              handleClearInput={handleClearInput}
-              value={useRequireInput.value}
-              onChange={useRequireInput.onChange}
-            />
+            <TextFieldUi handleClearInput={handleClearInput} value={useRequireInput.value} onChange={useRequireInput.onChange} />
             <DefaultButton
               onClick={handleSubmitRequirementText}
-              disabled={useRequireInput.value.length < 5}
+              disabled={useRequireInput.value.length < 5 || useRequireInput.value.trim() === ""}
               styleType="main"
             >
               Generate checklist
