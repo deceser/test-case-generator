@@ -64,7 +64,7 @@ const MainPage = () => {
   };
 
   const handleSubmitRequirementText = () => {
-    if (!useRequireInput.value) {
+    if (!useRequireInput.value || useRequireInput.value.length < 5) {
       setTouched(true);
       setIsDirty(true);
       validateRequirement(useRequireInput.value);
