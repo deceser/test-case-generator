@@ -1,6 +1,4 @@
 .layout__default {
-  // background: olive;
-
   position: relative;
   width: 1410px;
   margin: auto;
@@ -8,8 +6,7 @@
 }
 
 .progress {
-  position: absolute; // fixed
-  width: 50px;
-  top: 470px;
+  position: fixed;
+  top: calc(470px - 80px);
   right: 120px;
 }

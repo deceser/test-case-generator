@@ -1,14 +1,15 @@
 import React from "react";
 
-import ChecklistItemUI from "../../../ui/item";
+import ChecklistItemUI from "../../../ui/ChecklistItemUI";
 
 import styles from "./index.module.scss";
 
 const ItemList = ({ ...props }) => {
   const {
     items,
+    showInput,
+    disabledItem,
     handleChangeCheckbox,
-    handleDeleteItem,
     handleEditItem,
     handleChangeItem,
     handleUpdateItem,
@@ -21,12 +22,14 @@ const ItemList = ({ ...props }) => {
           key={i.id}
           id={index + 1}
           value={i.name}
+          showInput={showInput}
+          disabled={disabledItem(items)}
           checked={i.isActive}
           readOnly={!i.isEdit}
           handleEditItem={() => handleEditItem(i.id)}
           onChange={(e) => handleChangeItem(e, i)}
           handleChangeCheckbox={() => handleChangeCheckbox(i.id, i.isActive)}
-          handleDeleteItem={() => handleDeleteItem(i.id)}
+          handleClearNewData={() => handleEditItem(i.id)}
           handleUpdateItem={() => handleUpdateItem(i.id)}
         />
       ))}

@@ -39,29 +39,16 @@ export const addNewItem = createAsyncThunk(
   },
 );
 
-export const deleteItem = createAsyncThunk(
-  "items/deleteItem",
-  async (id, { rejectWithValue, dispatch }) => {
-    try {
-      const response = await checkService.deleteItem(id);
-
-      dispatch(removeItem({ id }));
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(null);
-    }
-  },
-);
-
 export const updatedItem = createAsyncThunk(
   "items/updateItem",
   async (item, { rejectWithValue, dispatch }) => {
     try {
+      const trimmedValue = item.name.trim().replace(/\n\s+/g, "\n");
       const response = await checkService.updateItem(item.id, {
         key: "/name",
-        value: item.name,
+        value: trimmedValue,
       });
-      dispatch(updateItem({ ...item }));
+      dispatch(updateItem({ ...item, name: trimmedValue }));
       return response.data;
     } catch (error) {
       rejectWithValue(null);
@@ -162,9 +149,6 @@ export const itemsSlice = createSlice({
         return item;
       });
     },
-    removeItem(state, action) {
-      state.items = state.items.filter((i) => i.id !== action.payload.id);
-    },
     toggleCompleted(state, action) {
       const toggledItem = state.items.find((i) => i.id === action.payload.id);
       toggledItem.isActive = !toggledItem.isActive;
@@ -187,10 +171,28 @@ export const itemsSlice = createSlice({
       };
     },
     toggleEdit(state, action) {
-      const editItem = state.items.find((i) => i.id === action.payload.id);
-      if (editItem) {
-        editItem.isEdit = !editItem.isEdit;
-      }
+      const { id } = action.payload;
+
+      state.items.find((item) => {
+        if (item.id === id) {
+          if (item.isEdit) {
+            // Finish editing and restore the original data
+            item.isEdit = false;
+            // Restoring original data
+            item.name = item.originalData;
+            // Clearing saved original data
+            item.originalData = null;
+          } else {
+            // Let's start editing
+            item.isEdit = true;
+            // keep the original data
+            item.originalData = item.name;
+          }
+        } else {
+          // Remove the edit flag for the rest of the elements
+          item.isEdit = false;
+        }
+      });
     },
     // change input item
     onChangeItemUpdate: (state, action) => {
@@ -207,13 +209,14 @@ export const itemsSlice = createSlice({
     [getItems.pending]: setLoading,
     [addNewItem.pending]: setLoading,
     [updatedItem.pending]: setLoading,
-    [deleteItem.pending]: setLoading,
     [toggleStatus.pending]: setLoading,
     [toggleStatusAll.pending]: setLoading,
 
     [getItems.fulfilled]: (state, action) => {
       state.status = "success";
       state.items = action.payload;
+      const hasFalse = state.items.some((item) => item.isActive === false);
+      state.isAllSelected = !hasFalse;
     },
 
     [addNewItem.fulfilled]: (state, action) => {
@@ -224,7 +227,6 @@ export const itemsSlice = createSlice({
     [getItems.rejected]: setError,
     [addNewItem.rejected]: setError,
     [updatedItem.rejected]: setError,
-    [deleteItem.rejected]: setError,
     [toggleStatus.rejected]: setError,
     [toggleStatusAll.rejected]: setError,
   },

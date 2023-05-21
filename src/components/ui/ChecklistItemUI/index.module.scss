@@ -1,0 +1,191 @@
+@import "src/styles/variables";
+
+.inputItemChecklist {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: auto;
+
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+
+  .item__id {
+    padding: 10px 15px 10px 20px;
+    width: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    height: 5px;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    text-align: center;
+    color: $color-transparent-white;
+  }
+
+  .item {
+    height: 100%;
+    margin-left: 25px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: none;
+    border: none;
+    resize: none;
+    overflow: hidden;
+
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 140%;
+    color: $color-white;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: $color-transparent-white;
+    }
+  }
+
+  .item__buttons {
+    display: flex;
+    align-items: center;
+    gap: $gap-20;
+    padding: $padding-20;
+  }
+}
+
+.inputItemChecklist.active {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: auto;
+
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+
+  .item__id {
+    padding: 10px 15px 10px 20px;
+    width: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    height: 5px;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    text-align: center;
+    color: $color-transparent-white;
+  }
+
+  .item {
+    padding: 10px 0px;
+    height: 100%;
+    margin-left: 25px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: none;
+    border: none;
+    resize: none;
+    overflow: hidden;
+    cursor: text;
+
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 140%;
+    color: $color-white;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: $color-transparent-white;
+    }
+  }
+
+  .item__buttons {
+    display: flex;
+    align-items: center;
+    gap: $gap-20;
+    padding: $padding-20;
+  }
+}
+
+.inputItemChecklist.disabled {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: auto;
+
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+
+  .item__id {
+    width: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    height: 5px;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    text-align: center;
+    color: $color-transparent-white;
+  }
+
+  .item {
+    padding: 10px 0px;
+    height: 100%;
+    margin-left: 25px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: none;
+    border: none;
+    resize: none;
+    overflow: hidden;
+    cursor: pointer;
+
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 140%;
+    color: $color-transparent-white;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: $color-transparent-white;
+    }
+  }
+
+  .item__buttons {
+    display: flex;
+    align-items: center;
+    gap: $gap-20;
+    padding: $padding-20;
+  }
+}

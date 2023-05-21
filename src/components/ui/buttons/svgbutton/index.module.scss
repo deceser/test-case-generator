@@ -2,7 +2,7 @@
 
 .svg__button {
   cursor: pointer;
-  fill: $color-icon;
+  fill: $color-transparent-white;
   transition: ease-in-out 0.3s;
   background: none;
   border: none;
@@ -12,12 +12,8 @@
     transition: ease-in-out 0.5s;
   }
 
-  &:focus {
-    fill: $color-mint;
-  }
-
   &:disabled {
-    fill: $color-dark-gray;
+    fill: rgba(255, 255, 255, 0.2);
     cursor: default;
   }
 }

@@ -1,22 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  addNewItem,
-  updatedItem,
-  deleteItem,
-  toggleStatus,
-  toggleStatusAll,
-} from "../../../../redux/slices/itemSlice";
+import { addNewItem, updatedItem, toggleStatus, toggleStatusAll } from "../../../../redux/slices/itemSlice";
 
-import {
-  toggleEdit,
-  onChangeItemUpdate,
-} from "../../../../redux/slices/itemSlice";
+import { toggleEdit, onChangeItemUpdate } from "../../../../redux/slices/itemSlice";
 
 import { useInput } from "../../../../hooks/useInput";
-import { useFilterItems } from "../../../../hooks/useFilterItems";
-import { downloadCVS } from "../../../../utils/download/downloadCSV";
 
 import ChecklistItem from "../ChecklistItem";
 
@@ -24,7 +13,6 @@ import TextButton from "../../../ui/buttons/textbutton";
 import CheckBoxUi from "../../../ui/checkbox";
 import InputNewItem from "../../../ui/inputnewitem";
 
-import ExportSvg from "../../../../assets/svg/ExportSvg";
 import PlusSvg from "../../../../assets/svg/PlusSvg";
 import EyeSvg from "../../../../assets/svg/EyeSvg";
 import HideEyeSvg from "../../../../assets/svg/HideEyeSvg";
@@ -32,35 +20,23 @@ import HideEyeSvg from "../../../../assets/svg/HideEyeSvg";
 import styles from "./index.module.scss";
 
 const CheckList = ({ ...props }) => {
-  const { checklistId } = props;
+  const { checklistId, filteredItems, showItem, toggleShowItem } = props;
 
   const dispatch = useDispatch();
   const items = useSelector((state) => state.items.items);
   const isAllSelected = useSelector((state) => state.items.isAllSelected);
 
-  const addItem = () => {
-    const item = { name: useInputNewItem.value, checkListId: checklistId };
-    dispatch(addNewItem(item));
-    handleHideInput();
-    useInputNewItem.setValue("");
-  };
+  const [disabledNewItem, setDisabledNewItem] = React.useState(false);
 
   const handleEditItem = (id) => {
     dispatch(toggleEdit({ id }));
-  };
-
-  const handleDeleteItem = (id) => {
-    dispatch(deleteItem(id));
-  };
-
-  const handleChangeItem = (event, i) => {
-    const item = { ...i, name: event.target.value };
-    dispatch(onChangeItemUpdate(item));
+    setDisabledNewItem(true);
   };
 
   const handleSubmitUpdateItem = (id) => {
     const item = items.find((i) => i.id === id);
     dispatch(updatedItem(item));
+    setDisabledNewItem(false);
   };
 
   const handleChangeCheckbox = (id) => {
@@ -71,18 +47,15 @@ const CheckList = ({ ...props }) => {
     dispatch(toggleStatusAll());
   };
 
-  const [showItem, setShowItem] = React.useState(false);
-
-  const filteredItems = useFilterItems(showItem, items);
-
-  const toggleShowItem = () => {
-    setShowItem(!showItem);
-  };
-
   const [showInput, setShowInput] = React.useState(false);
   const refInputNewItem = React.useRef(null);
+  const useInputNewItem = useInput("", false);
 
-  const useInputNewItem = useInput("");
+  React.useEffect(() => {
+    if (showInput) {
+      setFocus("newItemInput");
+    }
+  }, [showInput]);
 
   const handleHideInput = () => {
     setShowInput(!showInput);
@@ -92,9 +65,25 @@ const CheckList = ({ ...props }) => {
     });
   };
 
-  const handleDownload = () => {
-    downloadCVS(filteredItems, checklistId);
+  const addItem = () => {
+    const trimmedValue = useInputNewItem.value.trim().replace(/\n\s+/g, "\n");
+    const item = { name: trimmedValue, checkListId: checklistId };
+    dispatch(addNewItem(item));
+    handleHideInput();
+    useInputNewItem.setValue("");
   };
+
+  const handleChangeItem = (event, i) => {
+    const updatedValue = event.target.value;
+    const item = { ...i, name: updatedValue };
+    dispatch(onChangeItemUpdate(item));
+  };
+
+  const handleNewItemChange = (event) => {
+    useInputNewItem.onChange(event);
+  };
+
+  const disabledItem = () => filteredItems.some((i) => i.isEdit);
 
   return (
     <div className={styles.checklist}>
@@ -108,6 +97,8 @@ const CheckList = ({ ...props }) => {
         <div className={styles.top__right}>
           <h4>Select all</h4>
           <CheckBoxUi
+            showInput={showInput}
+            disabled={disabledItem(filteredItems)}
             checked={isAllSelected}
             onChange={handleChangeAllCheckboxes}
           />
@@ -115,44 +106,34 @@ const CheckList = ({ ...props }) => {
       </div>
       <ChecklistItem
         items={filteredItems}
+        showInput={showInput}
+        disabledItem={disabledItem}
         handleChangeCheckbox={handleChangeCheckbox}
-        handleDeleteItem={handleDeleteItem}
         handleEditItem={handleEditItem}
         handleUpdateItem={handleSubmitUpdateItem}
         handleChangeItem={handleChangeItem}
       />
-      <div
-        className={showInput ? styles.newItem__visible : styles.newItem__hidden}
-      >
+      <div className={showInput ? styles.newItem__visible : styles.newItem__hidden}>
         <InputNewItem
-          addNewItem={addItem}
+          refInputNewItem={refInputNewItem}
+          addNewItem={handleSubmit(addItem)}
           items={filteredItems}
           value={useInputNewItem.value}
-          refInputNewItem={refInputNewItem}
           handleHideInput={handleHideInput}
-          onChange={useInputNewItem.onChange}
+          onChange={handleNewItemChange}
         />
       </div>
       <div className={styles.checklist__bottom}>
         <div className={styles.bottom__left}>
-          <TextButton
-            icon={<PlusSvg />}
-            onClick={handleHideInput}
-            disabled={showInput}
-          >
-            Add you item
+          <TextButton styleType="visible" icon={<PlusSvg />} onClick={handleHideInput} disabled={showInput || disabledNewItem}>
+            Add your item
           </TextButton>
           <TextButton
+            styleType={!isAllSelected ? "visible" : "hidden"}
             onClick={toggleShowItem}
-            disabled={isAllSelected}
             icon={!showItem ? <HideEyeSvg /> : <EyeSvg />}
           >
             {!showItem ? "Hide disabled" : "Show disabled"}
-          </TextButton>
-        </div>
-        <div className={styles.bottom__right}>
-          <TextButton onClick={handleDownload} icon={<ExportSvg />}>
-            Export checklist
           </TextButton>
         </div>
       </div>

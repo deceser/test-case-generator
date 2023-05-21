@@ -12,7 +12,7 @@ import TextFieldUi from "../../components/ui/requirementTextField";
 import ProgressBar from "../../components/block/progressbar";
 
 import CheckList from "../../components/block/checklist/list";
-import ItemUi from "../../components/ui/item";
+import ItemUi from "../../components/ui/ChecklistItemUI";
 
 import CloseSvg from "../../assets/svg/CloseSvg";
 import PlusSvg from "../../assets/svg/PlusSvg";
@@ -32,8 +32,12 @@ const UiPage = () => {
         <SvgButton>
           <CloseSvg />
         </SvgButton>
-        <TextButton icon={<PlusSvg />}>Add your item</TextButton>
-        <TextButton icon={<EyeSvg />}>Show disabled</TextButton>
+        <TextButton styleType="visible" icon={<PlusSvg />}>
+          Add your item
+        </TextButton>
+        <TextButton styleType="visible" icon={<EyeSvg />}>
+          Show disabled
+        </TextButton>
       </div>
       <div className={styles.fonts}>
         <H1Ui>Test Case Generator</H1Ui>
@@ -43,19 +47,14 @@ const UiPage = () => {
           information about
         </ParagraphUi>
       </div>
-      <div className={styles.progress}>{/* <ProgressBar /> */}</div>
       <div>
         <CheckBoxUi />
       </div>
       <div>
         <TextFieldUi />
       </div>
-      <div>
-        <ItemUi />
-      </div>
-      <div>
-        <CheckList />
-      </div>
+      <div>{/* <ItemUi /> */}</div>
+      <div>{/* <CheckList /> */}</div>
     </div>
   );
 };
