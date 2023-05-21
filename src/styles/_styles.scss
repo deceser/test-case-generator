@@ -8,6 +8,10 @@
   color: $color-white;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   position: relative;
   background: $color-body;
