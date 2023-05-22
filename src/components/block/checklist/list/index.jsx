@@ -119,10 +119,8 @@ const CheckList = ({ ...props }) => {
         handleChangeCheckbox={handleChangeCheckbox}
         handleBlurItem={handleBlurItem}
         handleChangeItem={handleChangeItem}
-        error={
-          shouldDisplayError() &&
-          errorMessages.map((errorMessage, index) => <React.Fragment key={index}>{errorMessage}</React.Fragment>)
-        }
+        errorMessages={errorMessages}
+        shouldDisplayError={shouldDisplayError}
       />
       <div className={showNewItemInput ? styles.newItem__visible : styles.newItem__hidden}>
         <AddNewItem

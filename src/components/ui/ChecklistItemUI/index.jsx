@@ -22,7 +22,8 @@ const ChecklistItemUI = ({ children, ...props }) => {
     handleChangeCheckbox,
     handleClearNewData,
     handleUpdateItem,
-    errorMessages,
+    error,
+    shouldDisplayError,
   } = props;
 
   const textareaRef = React.useRef(null);
@@ -82,6 +83,13 @@ const ChecklistItemUI = ({ children, ...props }) => {
           </div>
         )}
       </div>
+      {shouldDisplayError && (
+        <>
+          {error.map((errorMessage, index) => (
+            <span key={index}>{errorMessage}</span>
+          ))}
+        </>
+      )}
     </>
   );
 };
