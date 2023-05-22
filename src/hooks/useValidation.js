@@ -7,11 +7,11 @@ export const useValidation = (validationSettings) => {
   const validateRule = (value, customErrorMessages = []) => {
     const regex = /^(?!\s+$).+/;
 
-    const { minLength, maxLength, errorMessage } = validationSettings;
+    const { minLength, maxLength, errorMessage, required } = validationSettings;
 
     if (value.length === 0) {
       setIsValid(false);
-      setErrorMessages(["The requirement field is required.", ...customErrorMessages]);
+      setErrorMessages([required, ...customErrorMessages]);
     } else if (value.length < minLength || value.length > maxLength) {
       setIsValid(false);
       setErrorMessages([errorMessage, ...customErrorMessages]);
