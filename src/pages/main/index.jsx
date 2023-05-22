@@ -66,7 +66,7 @@ const MainPage = () => {
   };
 
   const handleSubmitRequirementText = () => {
-    if (!useRequireInput.value || useRequireInput.value.length < 5 || useRequireInput.value.length > 2500) {
+    if (!useRequireInput.value.trim() || useRequireInput.value.length < 5 || useRequireInput.value.length > 2500) {
       setTouched(true);
       setIsDirty(true);
       validateRule(useRequireInput.value);
