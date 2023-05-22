@@ -7,7 +7,7 @@ import { getItems } from "../../redux/slices/itemSlice";
 import { useInput } from "../../hooks/useInput";
 import { useFilterItems } from "../../hooks/useFilterItems";
 import { downloadCVS } from "../../utils/download/downloadCSV";
-import { useRequirementValidation } from "../../hooks/useValidationRequirement";
+import { useValidation } from "../../hooks/useValidation";
 
 import H1Ui from "../../components/ui/fonts/h1";
 import H3Ui from "../../components/ui/fonts/h3";
@@ -39,14 +39,20 @@ const MainPage = () => {
   const [isTouched, setTouched] = React.useState(false);
   const [isDirty, setIsDirty] = React.useState(false);
 
+  const validationSettings = {
+    minLength: 5,
+    maxLength: 2500,
+    errorMessage: "The requirement must be between 5 and 2500 characters.",
+  };
+
   const useRequireInput = useInput("");
-  const { validRequirement, errorMessages, validateRequirement } = useRequirementValidation();
+  const { isValid, errorMessages, validateRule } = useValidation(validationSettings);
   const filteredItems = useFilterItems(showItem, items);
 
   const handleRequirementBlur = () => {
     setTouched(true);
     if (isDirty) {
-      validateRequirement(useRequireInput.value);
+      validateRule(useRequireInput.value);
     }
   };
 
@@ -60,14 +66,14 @@ const MainPage = () => {
   };
 
   const shouldDisplayError = () => {
-    return isDirty && isTouched && !validRequirement;
+    return isDirty && isTouched && !isValid;
   };
 
   const handleSubmitRequirementText = () => {
     if (!useRequireInput.value || useRequireInput.value.length < 5 || useRequireInput.value.length > 2500) {
       setTouched(true);
       setIsDirty(true);
-      validateRequirement(useRequireInput.value);
+      validateRule(useRequireInput.value);
     } else {
       dispatch(generateChecklist({ data: useRequireInput.value, userId }));
     }
