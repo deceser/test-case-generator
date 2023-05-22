@@ -15,7 +15,7 @@ export const useValidation = (validationSettings) => {
     } else if (value.length < minLength || value.length > maxLength) {
       setIsValid(false);
       setErrorMessages([errorMessage, ...customErrorMessages]);
-    } else if (!regex.test(requirement)) {
+    } else if (!regex.test(value)) {
       setIsValid(false);
       setErrorMessages([errorMessage, ...customErrorMessages]);
     } else {
