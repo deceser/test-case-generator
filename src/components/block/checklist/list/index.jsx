@@ -116,7 +116,7 @@ const CheckList = ({ ...props }) => {
       <div className={showInput ? styles.newItem__visible : styles.newItem__hidden}>
         <InputNewItem
           refInputNewItem={refInputNewItem}
-          addNewItem={handleSubmit(addItem)}
+          addNewItem={addItem}
           items={filteredItems}
           value={useInputNewItem.value}
           handleHideInput={handleHideInput}
