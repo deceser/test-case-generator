@@ -51,12 +51,6 @@ const CheckList = ({ ...props }) => {
   const refInputNewItem = React.useRef(null);
   const useInputNewItem = useInput("", false);
 
-  React.useEffect(() => {
-    if (showInput) {
-      setFocus("newItemInput");
-    }
-  }, [showInput]);
-
   const handleHideInput = () => {
     setShowInput(!showInput);
     useInputNewItem.setValue("");
