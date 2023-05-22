@@ -32,7 +32,7 @@ const InputNewItem = ({ children, ...props }) => {
           </SvgButton>
         </div>
       </div>
-      <span className={styles.error__message}>{error}</span>
+      {error ? <span className={styles.error__message}>{error}</span> : null}
     </div>
   );
 };

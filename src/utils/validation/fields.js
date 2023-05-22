@@ -5,7 +5,7 @@ export const validationRuleRequirementInput = {
   errorMessage: "The requirement must be between 5 and 2500 characters.",
 };
 
-export const validationRuleCheckList = {
+export const validationRuleNewItem = {
   required: "The requirement field is required.",
   minLength: 3,
   maxLength: 300,

@@ -8,7 +8,7 @@ import { toggleEdit, onChangeItemUpdate } from "../../../../redux/slices/itemSli
 import { useInput } from "../../../../hooks/useInput";
 import { useValidation } from "../../../../hooks/useValidation";
 
-import { validationRuleCheckList } from "../../../../utils/validation/fields";
+import { validationRuleNewItem } from "../../../../utils/validation/fields";
 
 import ChecklistItem from "../ChecklistItem";
 
@@ -36,12 +36,6 @@ const CheckList = ({ ...props }) => {
     setDisabledNewItem(true);
   };
 
-  const handleSubmitUpdateItem = (id) => {
-    const item = items.find((i) => i.id === id);
-    dispatch(updatedItem(item));
-    setDisabledNewItem(false);
-  };
-
   const handleChangeCheckbox = (id) => {
     dispatch(toggleStatus(id));
   };
@@ -50,20 +44,37 @@ const CheckList = ({ ...props }) => {
     dispatch(toggleStatusAll());
   };
 
-  const handleChangeItem = (event, i) => {
-    const updatedValue = event.target.value;
-    const item = { ...i, name: updatedValue };
-    dispatch(onChangeItemUpdate(item));
-  };
-
   const [showInput, setShowInput] = React.useState(false);
   const refInputNewItem = React.useRef(null);
   const useInputNewItem = useInput("", false);
 
-  const { isValid, errorMessages, setErrorMessages, validateRule, isDirty, setIsDirty, isTouched, setTouched } =
-    useValidation(validationRuleCheckList);
+  const { isValid, errorMessages, validateRule, isDirty, setIsDirty, isTouched, setTouched } =
+    useValidation(validationRuleNewItem);
 
-  const handleItemBlur = () => {
+  const onBlurItemInput = (event, id) => {
+    setTouched(true);
+    if (isDirty) {
+      const updatedValue = event.target.value;
+      const item = { id, name: updatedValue };
+      dispatch(onChangeItemUpdate(item));
+      validateRule(updatedValue);
+    }
+  };
+
+  const handleChangeItem = (event, id) => {
+    const updatedValue = event.target.value;
+    const item = { id, name: updatedValue };
+    dispatch(onChangeItemUpdate(item));
+    setIsDirty(true);
+  };
+
+  const handleSubmitUpdateItem = (id) => {
+    const item = items.find((i) => i.id === id);
+    dispatch(updatedItem(item));
+    setDisabledNewItem(false);
+  };
+
+  const handleNewItemBlur = () => {
     setTouched(true);
     if (isDirty) {
       validateRule(useInputNewItem.value);
@@ -73,7 +84,6 @@ const CheckList = ({ ...props }) => {
   const handleHideInput = () => {
     setShowInput(!showInput);
     useInputNewItem.setValue("");
-    setErrorMessages([]);
     setTimeout(() => {
       refInputNewItem.current.focus();
     });
@@ -124,6 +134,7 @@ const CheckList = ({ ...props }) => {
         </div>
       </div>
       <ChecklistItem
+        onBlurItemInput={onBlurItemInput}
         items={filteredItems}
         showInput={showInput}
         disabledItem={disabledItem}
@@ -131,7 +142,12 @@ const CheckList = ({ ...props }) => {
         handleEditItem={handleEditItem}
         handleUpdateItem={handleSubmitUpdateItem}
         handleChangeItem={handleChangeItem}
+        error={
+          shouldDisplayError() &&
+          errorMessages.map((errorMessage, index) => <React.Fragment key={index}>{errorMessage}</React.Fragment>)
+        }
       />
+
       <div className={showInput ? styles.newItem__visible : styles.newItem__hidden}>
         <InputNewItem
           refInputNewItem={refInputNewItem}
@@ -140,11 +156,11 @@ const CheckList = ({ ...props }) => {
           value={useInputNewItem.value}
           handleHideInput={handleHideInput}
           onChange={handleNewItemChange}
-          onBlur={handleItemBlur}
-          error={
-            shouldDisplayError() &&
-            errorMessages.map((errorMessage, index) => <React.Fragment key={index}>{errorMessage}</React.Fragment>)
-          }
+          onBlur={handleNewItemBlur}
+          // error={
+          //   shouldDisplayError() &&
+          //   errorMessages.map((errorMessage, index) => <React.Fragment key={index}>{errorMessage}</React.Fragment>)
+          // }
         />
       </div>
       <div className={styles.checklist__bottom}>

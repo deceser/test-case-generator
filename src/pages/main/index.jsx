@@ -9,7 +9,8 @@ import { useInput } from "../../hooks/useInput";
 import { useFilterItems } from "../../hooks/useFilterItems";
 import { useValidation } from "../../hooks/useValidation";
 
-import { downloadCVS } from "../../utils/download/downloadCSV";
+import { downloadCVS } from "../../helpers/downloadFile";
+import { navigationScroll } from "../../helpers/navigationScroll";
 import { validationRuleRequirementInput } from "../../utils/validation/fields";
 
 import H1Ui from "../../components/ui/fonts/h1";

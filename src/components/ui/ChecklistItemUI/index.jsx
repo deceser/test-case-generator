@@ -1,6 +1,7 @@
 import React from "react";
 import TextareaAutosize from "react-textarea-autosize";
-
+import { useSelector } from "react-redux";
+import ErrorDoWorkPlease from "./ErrorDoWorkPlease";
 import SvgButton from "../buttons/svgbutton";
 import EditSvg from "../../../assets/svg/EditSvg";
 import CheckSvg from "../../../assets/svg/CheckSvg";
@@ -12,8 +13,11 @@ import styles from "./index.module.scss";
 const ChecklistItemUI = ({ children, ...props }) => {
   const {
     id,
+    itemId,
     value,
+    onFocus,
     onChange,
+    onBlur,
     handleEditItem,
     readOnly,
     checked,
@@ -23,6 +27,8 @@ const ChecklistItemUI = ({ children, ...props }) => {
     handleClearNewData,
     handleUpdateItem,
   } = props;
+
+  const itemsErrors = useSelector((state) => state.items.itemsErrors);
 
   const textareaRef = React.useRef(null);
 
@@ -48,43 +54,44 @@ const ChecklistItemUI = ({ children, ...props }) => {
   }
 
   return (
-    <div className={typeStyleItem.join(" ")}>
-      <span className={styles.item__id}>{id}</span>
-      <TextareaAutosize
-        minRows={1}
-        maxLength={300}
-        value={value}
-        onChange={onChange}
-        readOnly={readOnly}
-        className={styles.item}
-        placeholder="Type your item here..."
-      />
+    <>
+      <div className={typeStyleItem.join(" ")}>
+        <span className={styles.item__id}>{id}</span>
+        <TextareaAutosize
+          minRows={1}
+          maxLength={300}
+          value={value}
+          onFocus={onFocus}
+          onChange={onChange}
+          onBlur={onBlur}
+          readOnly={readOnly}
+          className={styles.item}
+          placeholder="Type your item here..."
+          ref={textareaRef}
+        />
 
-      {readOnly ? (
-        <div className={styles.item__buttons}>
-          <SvgButton
-            disabled={showInput || disabled}
-            onClick={handleEditButtonClick}
-          >
-            <EditSvg />
-          </SvgButton>
-          <CheckBoxUi
-            disabled={showInput || disabled}
-            checked={checked}
-            onChange={handleChangeCheckbox}
-          />
-        </div>
-      ) : (
-        <div className={styles.item__buttons}>
-          <SvgButton disabled={value.length < 3} onClick={handleUpdateItem}>
-            <CheckSvg />
-          </SvgButton>
-          <SvgButton onClick={handleClearNewData}>
-            <CloseSvg />
-          </SvgButton>
-        </div>
-      )}
-    </div>
+        {readOnly ? (
+          <div className={styles.item__buttons}>
+            <SvgButton disabled={showInput || disabled} onClick={handleEditButtonClick}>
+              <EditSvg />
+            </SvgButton>
+            <CheckBoxUi disabled={showInput || disabled} checked={checked} onChange={handleChangeCheckbox} />
+          </div>
+        ) : (
+          <div className={styles.item__buttons}>
+            <SvgButton onClick={handleUpdateItem}>
+              <CheckSvg />
+            </SvgButton>
+            <SvgButton onClick={handleClearNewData}>
+              <CloseSvg />
+            </SvgButton>
+          </div>
+        )}
+      </div>
+      <div>
+        <ErrorDoWorkPlease itemsErrors={itemsErrors} itemId={itemId} />
+      </div>
+    </>
   );
 };
 
