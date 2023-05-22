@@ -6,6 +6,9 @@ import { addNewItem, updatedItem, toggleStatus, toggleStatusAll } from "../../..
 import { toggleEdit, onChangeItemUpdate } from "../../../../redux/slices/itemSlice";
 
 import { useInput } from "../../../../hooks/useInput";
+import { useValidation } from "../../../../hooks/useValidation";
+
+import { validationRuleCheckList } from "../../../../utils/validation/fields";
 
 import ChecklistItem from "../ChecklistItem";
 
@@ -47,13 +50,30 @@ const CheckList = ({ ...props }) => {
     dispatch(toggleStatusAll());
   };
 
+  const handleChangeItem = (event, i) => {
+    const updatedValue = event.target.value;
+    const item = { ...i, name: updatedValue };
+    dispatch(onChangeItemUpdate(item));
+  };
+
   const [showInput, setShowInput] = React.useState(false);
   const refInputNewItem = React.useRef(null);
   const useInputNewItem = useInput("", false);
 
+  const { isValid, errorMessages, setErrorMessages, validateRule, isDirty, setIsDirty, isTouched, setTouched } =
+    useValidation(validationRuleCheckList);
+
+  const handleItemBlur = () => {
+    setTouched(true);
+    if (isDirty) {
+      validateRule(useInputNewItem.value);
+    }
+  };
+
   const handleHideInput = () => {
     setShowInput(!showInput);
     useInputNewItem.setValue("");
+    setErrorMessages([]);
     setTimeout(() => {
       refInputNewItem.current.focus();
     });
@@ -62,19 +82,24 @@ const CheckList = ({ ...props }) => {
   const addItem = () => {
     const trimmedValue = useInputNewItem.value.trim().replace(/\n\s+/g, "\n");
     const item = { name: trimmedValue, checkListId: checklistId };
-    dispatch(addNewItem(item));
-    handleHideInput();
-    useInputNewItem.setValue("");
-  };
-
-  const handleChangeItem = (event, i) => {
-    const updatedValue = event.target.value;
-    const item = { ...i, name: updatedValue };
-    dispatch(onChangeItemUpdate(item));
+    if (!trimmedValue || trimmedValue.length < 3 || trimmedValue.length > 300) {
+      setTouched(true);
+      setIsDirty(true);
+      validateRule(trimmedValue);
+    } else {
+      dispatch(addNewItem(item));
+      handleHideInput();
+      useInputNewItem.setValue("");
+    }
   };
 
   const handleNewItemChange = (event) => {
     useInputNewItem.onChange(event);
+    setIsDirty(true);
+  };
+
+  const shouldDisplayError = () => {
+    return isDirty && isTouched && !isValid;
   };
 
   const disabledItem = () => filteredItems.some((i) => i.isEdit);
@@ -115,6 +140,11 @@ const CheckList = ({ ...props }) => {
           value={useInputNewItem.value}
           handleHideInput={handleHideInput}
           onChange={handleNewItemChange}
+          onBlur={handleItemBlur}
+          error={
+            shouldDisplayError() &&
+            errorMessages.map((errorMessage, index) => <React.Fragment key={index}>{errorMessage}</React.Fragment>)
+          }
         />
       </div>
       <div className={styles.checklist__bottom}>
