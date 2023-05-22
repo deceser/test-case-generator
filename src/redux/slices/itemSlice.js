@@ -5,18 +5,6 @@ import checkService from "../../services/check.service";
 
 const initialState = {
   items: [],
-  itemsErrors: [
-    {
-      id: "f84cdc47-1237-4606-fc0a-08db5abe68db",
-      isDirty: true,
-      errors: ["Some test FIRST error message"],
-    },
-    {
-      id: "fff3419d-a4b6-4890-fc0d-08db5abe68db",
-      isDirty: true,
-      errors: ["Some test SECOND error message"],
-    },
-  ],
   status: "idle",
   isAllSelected: true,
 };

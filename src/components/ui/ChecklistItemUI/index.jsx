@@ -1,7 +1,5 @@
 import React from "react";
 import TextareaAutosize from "react-textarea-autosize";
-import { useSelector } from "react-redux";
-import ErrorDoWorkPlease from "./ErrorDoWorkPlease";
 import SvgButton from "../buttons/svgbutton";
 import EditSvg from "../../../assets/svg/EditSvg";
 import CheckSvg from "../../../assets/svg/CheckSvg";
@@ -13,9 +11,7 @@ import styles from "./index.module.scss";
 const ChecklistItemUI = ({ children, ...props }) => {
   const {
     id,
-    itemId,
     value,
-    onFocus,
     onChange,
     onBlur,
     handleEditItem,
@@ -26,9 +22,8 @@ const ChecklistItemUI = ({ children, ...props }) => {
     handleChangeCheckbox,
     handleClearNewData,
     handleUpdateItem,
+    errorMessages,
   } = props;
-
-  const itemsErrors = useSelector((state) => state.items.itemsErrors);
 
   const textareaRef = React.useRef(null);
 
@@ -61,7 +56,6 @@ const ChecklistItemUI = ({ children, ...props }) => {
           minRows={1}
           maxLength={300}
           value={value}
-          onFocus={onFocus}
           onChange={onChange}
           onBlur={onBlur}
           readOnly={readOnly}
@@ -87,9 +81,6 @@ const ChecklistItemUI = ({ children, ...props }) => {
             </SvgButton>
           </div>
         )}
-      </div>
-      <div>
-        <ErrorDoWorkPlease itemsErrors={itemsErrors} itemId={itemId} />
       </div>
     </>
   );

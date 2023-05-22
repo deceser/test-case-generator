@@ -13,7 +13,7 @@ export const generateChecklist = createAsyncThunk(
     try {
       const response = await requirementService.generateChecklist(data, userId);
 
-      // window.location.hash = "checklist";
+      window.location.hash = "checklist";
 
       return response.data;
     } catch (error) {

@@ -10,7 +10,6 @@ import { useFilterItems } from "../../hooks/useFilterItems";
 import { useValidation } from "../../hooks/useValidation";
 
 import { downloadCVS } from "../../helpers/downloadFile";
-import { navigationScroll } from "../../helpers/navigationScroll";
 import { validationRuleRequirementInput } from "../../utils/validation/fields";
 
 import H1Ui from "../../components/ui/fonts/h1";
@@ -42,7 +41,7 @@ const MainPage = () => {
   const [showItem, setShowItem] = React.useState(true);
 
   const useRequireInput = useInput("");
-  const { isValid, errorMessages, validateRule, isDirty, setIsDirty, isTouched, setTouched } =
+  const { isValid, errorMessages, validateRule, isDirty, setIsDirty, isTouched, setTouched, resetErrors } =
     useValidation(validationRuleRequirementInput);
   const filteredItems = useFilterItems(showItem, items);
 
@@ -60,6 +59,7 @@ const MainPage = () => {
 
   const handleClearInput = () => {
     useRequireInput.clearInput();
+    resetErrors();
   };
 
   const shouldDisplayError = () => {

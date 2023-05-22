@@ -11,8 +11,6 @@ export const getChecklist = createAsyncThunk("checklist/getChecklist", async (_,
   try {
     const response = await checklistService.getChecklist();
 
-    window.location.hash = "#checklist";
-
     return response.data;
   } catch (error) {
     return rejectWithValue(null);

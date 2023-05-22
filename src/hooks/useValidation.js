@@ -26,6 +26,10 @@ export const useValidation = (validationSettings) => {
     }
   };
 
+  const resetErrors = () => {
+    setErrorMessages([]);
+  };
+
   return {
     isValid,
     errorMessages,
@@ -34,5 +38,6 @@ export const useValidation = (validationSettings) => {
     setIsDirty,
     isTouched,
     setTouched,
+    resetErrors,
   };
 };
