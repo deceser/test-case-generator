@@ -3,6 +3,8 @@ import React from "react";
 export const useValidation = (validationSettings) => {
   const [isValid, setIsValid] = React.useState(true);
   const [errorMessages, setErrorMessages] = React.useState([]);
+  const [isDirty, setIsDirty] = React.useState(false);
+  const [isTouched, setTouched] = React.useState(false);
 
   const validateRule = (value, customErrorMessages = []) => {
     const regex = /^(?!\s+$).+/;
@@ -28,5 +30,9 @@ export const useValidation = (validationSettings) => {
     isValid,
     errorMessages,
     validateRule,
+    isDirty,
+    setIsDirty,
+    isTouched,
+    setTouched,
   };
 };

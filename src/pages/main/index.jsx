@@ -39,11 +39,10 @@ const MainPage = () => {
   }, [dispatch, checklistId]);
 
   const [showItem, setShowItem] = React.useState(true);
-  const [isTouched, setTouched] = React.useState(false);
-  const [isDirty, setIsDirty] = React.useState(false);
 
   const useRequireInput = useInput("");
-  const { isValid, errorMessages, validateRule } = useValidation(validationRuleRequirementInput);
+  const { isValid, errorMessages, validateRule, isDirty, setIsDirty, isTouched, setTouched } =
+    useValidation(validationRuleRequirementInput);
   const filteredItems = useFilterItems(showItem, items);
 
   const handleRequirementBlur = () => {
