@@ -96,6 +96,8 @@ const CheckList = ({ ...props }) => {
 
   const disabledItem = () => filteredItems.some((i) => i.isEdit);
 
+  // -=-=--=--==--=-=-=-=-=-=-=-=-=--=-=-
+
   const itemVal = filteredItems.map((item) => useValidation(validationRuleNewItem));
 
   return (
@@ -126,9 +128,12 @@ const CheckList = ({ ...props }) => {
         handleChangeCheckbox={handleChangeCheckbox}
         handleBlurItem={handleBlurItem}
         handleChangeItem={handleChangeItem}
+        // -=-=-=-=-=-=-=-=--=-=-
+
         errorMessages={errorMessages}
         shouldDisplayError={shouldDisplayError}
-        // itemVal={itemVal}
+
+        // -=-=-=-=-=-=-=-=--=-=-
       />
       <div className={showNewItemInput ? styles.newItem__visible : styles.newItem__hidden}>
         <AddNewItem
