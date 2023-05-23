@@ -25,9 +25,8 @@ const CheckList = ({ ...props }) => {
   const { checklistId, filteredItems, showItem, toggleShowItem } = props;
 
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.items.items);
   const isAllSelected = useSelector((state) => state.items.isAllSelected);
-
+  const [selectedItemId, setSelectedItemId] = React.useState(null);
   const [disabledNewItem, setDisabledNewItem] = React.useState(false);
 
   // -=-=--=--==--=-=-=-=-=-=-=-=-=--=-=-
@@ -39,6 +38,7 @@ const CheckList = ({ ...props }) => {
     dispatch(toggleEdit({ id }));
     setDisabledNewItem(true);
     resetErrors();
+    setSelectedItemId(id);
   };
 
   const handleBlurItem = (event, id) => {
@@ -75,6 +75,8 @@ const CheckList = ({ ...props }) => {
     return isDirty && isTouched && !isValid;
   };
 
+  console.log(selectedItemId);
+
   // -=-=--=--==--=-=-=-=-=-=-=-=-=--=-=-
 
   const handleChangeCheckbox = (id) => {
@@ -96,6 +98,8 @@ const CheckList = ({ ...props }) => {
   // -=-=--=--==--=-=-=-=-=-=-=-=-=--=-=-
 
   const disabledItem = () => filteredItems.some((i) => i.isEdit);
+
+  const itemVal = filteredItems.map((item) => useValidation(validationRuleNewItem));
 
   return (
     <div className={styles.checklist}>
@@ -127,6 +131,8 @@ const CheckList = ({ ...props }) => {
         handleChangeItem={handleChangeItem}
         errorMessages={errorMessages}
         shouldDisplayError={shouldDisplayError}
+        selectedItemId={selectedItemId}
+        itemVal={itemVal}
       />
       <div className={showNewItemInput ? styles.newItem__visible : styles.newItem__hidden}>
         <AddNewItem

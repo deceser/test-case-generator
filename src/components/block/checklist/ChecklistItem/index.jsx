@@ -16,9 +16,10 @@ const ItemList = ({ ...props }) => {
     handleBlurItem,
     shouldDisplayError,
     errorMessages,
+    itemVal,
   } = props;
 
-  console.log(errorMessages);
+  console.log(itemVal);
 
   return (
     <div className={styles.item}>
@@ -38,9 +39,10 @@ const ItemList = ({ ...props }) => {
           handleChangeCheckbox={() => handleChangeCheckbox(i.id, i.isActive)}
           handleClearNewData={() => handleEditItem(i.id)}
           handleUpdateItem={() => handleUpdateItem(i)}
-          error={errorMessages.filter((err) => err.index === i.index)}
-          // error={errorMessages}
           shouldDisplayError={shouldDisplayError}
+          errorMessages={errorMessages.filter((err) => err.index === i.index)}
+          // errorMessages={errorMessages}
+          // itemVal={itemVal.filter((err) => err.id === i.id)}
         />
       ))}
     </div>
