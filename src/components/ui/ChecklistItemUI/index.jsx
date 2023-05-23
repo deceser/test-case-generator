@@ -27,9 +27,8 @@ const ChecklistItemUI = ({ children, ...props }) => {
     errorMessages,
     shouldDisplayError,
     itemVal,
+    validation,
   } = props;
-
-  console.log(itemVal);
 
   const textareaRef = React.useRef(null);
 

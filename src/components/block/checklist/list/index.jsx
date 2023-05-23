@@ -38,7 +38,6 @@ const CheckList = ({ ...props }) => {
     dispatch(toggleEdit({ id }));
     setDisabledNewItem(true);
     resetErrors();
-    setSelectedItemId(id);
   };
 
   const handleBlurItem = (event, id) => {
@@ -74,8 +73,6 @@ const CheckList = ({ ...props }) => {
   const shouldDisplayError = () => {
     return isDirty && isTouched && !isValid;
   };
-
-  console.log(selectedItemId);
 
   // -=-=--=--==--=-=-=-=-=-=-=-=-=--=-=-
 
@@ -131,8 +128,7 @@ const CheckList = ({ ...props }) => {
         handleChangeItem={handleChangeItem}
         errorMessages={errorMessages}
         shouldDisplayError={shouldDisplayError}
-        selectedItemId={selectedItemId}
-        itemVal={itemVal}
+        // itemVal={itemVal}
       />
       <div className={showNewItemInput ? styles.newItem__visible : styles.newItem__hidden}>
         <AddNewItem
