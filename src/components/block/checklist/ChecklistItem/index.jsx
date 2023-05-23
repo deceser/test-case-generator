@@ -16,7 +16,6 @@ const ItemList = ({ ...props }) => {
     handleBlurItem,
     shouldDisplayError,
     errorMessages,
-    itemVal,
   } = props;
 
   return (
@@ -37,10 +36,8 @@ const ItemList = ({ ...props }) => {
           handleChangeCheckbox={() => handleChangeCheckbox(i.id, i.isActive)}
           handleClearNewData={() => handleEditItem(i.id)}
           handleUpdateItem={() => handleUpdateItem(i)}
-          // errorMessages={errorMessages.filter((err) => err.index === i.index)}
+          shouldDisplayError={() => shouldDisplayError(i.id)}
           errorMessages={errorMessages}
-          shouldDisplayError={shouldDisplayError}
-          // itemVal={itemVal.filter((err) => err.id === i.id)}
         />
       ))}
     </div>

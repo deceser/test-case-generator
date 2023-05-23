@@ -38,6 +38,7 @@ const CheckList = ({ ...props }) => {
     dispatch(toggleEdit({ id }));
     setDisabledNewItem(true);
     resetErrors();
+    setSelectedItemId(id);
   };
 
   const handleBlurItem = (event, id) => {
@@ -70,8 +71,10 @@ const CheckList = ({ ...props }) => {
     }
   };
 
-  const shouldDisplayError = () => {
-    return isDirty && isTouched && !isValid;
+  const shouldDisplayError = (id) => {
+    if (id === selectedItemId) {
+      return isDirty && isTouched && !isValid;
+    }
   };
 
   // -=-=--=--==--=-=-=-=-=-=-=-=-=--=-=-
@@ -95,8 +98,6 @@ const CheckList = ({ ...props }) => {
   // -=-=--=--==--=-=-=-=-=-=-=-=-=--=-=-
 
   const disabledItem = () => filteredItems.some((i) => i.isEdit);
-
-  const itemVal = filteredItems.map((item) => useValidation(validationRuleNewItem));
 
   return (
     <div className={styles.checklist}>
@@ -128,7 +129,6 @@ const CheckList = ({ ...props }) => {
         handleChangeItem={handleChangeItem}
         errorMessages={errorMessages}
         shouldDisplayError={shouldDisplayError}
-        // itemVal={itemVal}
       />
       <div className={showNewItemInput ? styles.newItem__visible : styles.newItem__hidden}>
         <AddNewItem

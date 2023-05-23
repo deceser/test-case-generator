@@ -12,7 +12,6 @@ const ChecklistItemUI = ({ children, ...props }) => {
   const {
     id,
     itemId,
-
     value,
     onChange,
     onBlur,
@@ -26,8 +25,6 @@ const ChecklistItemUI = ({ children, ...props }) => {
     handleUpdateItem,
     errorMessages,
     shouldDisplayError,
-    itemVal,
-    validation,
   } = props;
 
   const textareaRef = React.useRef(null);
@@ -87,7 +84,7 @@ const ChecklistItemUI = ({ children, ...props }) => {
           </div>
         )}
       </div>
-      {shouldDisplayError && (
+      {shouldDisplayError(itemId) && (
         <>
           {errorMessages?.map((errorMessage, index) => (
             <span className={styles.error__message} key={index}>
