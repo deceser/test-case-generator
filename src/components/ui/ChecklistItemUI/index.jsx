@@ -11,6 +11,8 @@ import styles from "./index.module.scss";
 const ChecklistItemUI = ({ children, ...props }) => {
   const {
     id,
+    itemId,
+
     value,
     onChange,
     onBlur,
@@ -25,6 +27,8 @@ const ChecklistItemUI = ({ children, ...props }) => {
     error,
     shouldDisplayError,
   } = props;
+
+  console.log(error);
 
   const textareaRef = React.useRef(null);
 
@@ -86,7 +90,9 @@ const ChecklistItemUI = ({ children, ...props }) => {
       {shouldDisplayError && (
         <>
           {error.map((errorMessage, index) => (
-            <span key={index}>{errorMessage}</span>
+            <span className={styles.error__message} key={index}>
+              {errorMessage}
+            </span>
           ))}
         </>
       )}

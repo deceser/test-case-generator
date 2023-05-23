@@ -18,6 +18,8 @@ const ItemList = ({ ...props }) => {
     errorMessages,
   } = props;
 
+  console.log(errorMessages);
+
   return (
     <div className={styles.item}>
       {items.map((i, index) => (
@@ -36,7 +38,8 @@ const ItemList = ({ ...props }) => {
           handleChangeCheckbox={() => handleChangeCheckbox(i.id, i.isActive)}
           handleClearNewData={() => handleEditItem(i.id)}
           handleUpdateItem={() => handleUpdateItem(i)}
-          error={errorMessages.filter((item) => item.index === i.index)}
+          error={errorMessages.filter((err) => err.index === i.index)}
+          // error={errorMessages}
           shouldDisplayError={shouldDisplayError}
         />
       ))}

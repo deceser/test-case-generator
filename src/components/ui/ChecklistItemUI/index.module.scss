@@ -189,3 +189,13 @@
     padding: $padding-20;
   }
 }
+
+.error__message {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-left: 10px;
+  color: $color-error;
+}
