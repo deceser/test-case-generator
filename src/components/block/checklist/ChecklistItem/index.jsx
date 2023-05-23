@@ -14,8 +14,14 @@ const ItemList = ({ ...props }) => {
     handleChangeItem,
     handleUpdateItem,
     handleBlurItem,
-    shouldDisplayError,
+
+    // =-=-=-=-=--=-=-=-
     errorMessages,
+<<<<<<< HEAD
+=======
+    shouldDisplayError,
+    // =-=-=-=-=--=-=-=-
+>>>>>>> 2addf8cb92eaff2be7780f0ae0a72c4d4e1f72fd
   } = props;
 
   return (
@@ -36,8 +42,17 @@ const ItemList = ({ ...props }) => {
           handleChangeCheckbox={() => handleChangeCheckbox(i.id, i.isActive)}
           handleClearNewData={() => handleEditItem(i.id)}
           handleUpdateItem={() => handleUpdateItem(i)}
+<<<<<<< HEAD
           shouldDisplayError={() => shouldDisplayError(i.id)}
           errorMessages={errorMessages}
+=======
+          // =-=-=-=-=--=-=-=-
+
+          errorMessages={errorMessages}
+          shouldDisplayError={shouldDisplayError}
+
+          // =-=-=-=-=--=-=-=-
+>>>>>>> 2addf8cb92eaff2be7780f0ae0a72c4d4e1f72fd
         />
       ))}
     </div>
