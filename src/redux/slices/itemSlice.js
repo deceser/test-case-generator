@@ -29,9 +29,8 @@ export const addNewItem = createAsyncThunk("items/addNewItem", async (item, { re
   }
 });
 
-export const updatedItem = createAsyncThunk("items/updateItem", async (item, { rejectWithValue, dispatch }) => {
+export const updatedItem = createAsyncThunk("items/updateItem", async ({ item, trimmedValue }, { rejectWithValue, dispatch }) => {
   try {
-    const trimmedValue = item.name.trim().replace(/\n\s+/g, "\n");
     const response = await checkService.updateItem(item.id, {
       key: "/name",
       value: trimmedValue,

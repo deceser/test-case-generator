@@ -58,11 +58,17 @@ const CheckList = ({ ...props }) => {
     dispatch(onChangeItemUpdate(item));
   };
 
-  const handleSubmitUpdateItem = (id) => {
-    const item = items.find((i) => i.id === id);
-    dispatch(updatedItem(item));
-    setDisabledNewItem(false);
-    resetErrors();
+  const handleSubmitUpdateItem = (i) => {
+    const trimmedValue = i.name.trim().replace(/\n\s+/g, "\n");
+    const item = { ...i, name: trimmedValue };
+    if (!trimmedValue || trimmedValue.length < 3 || trimmedValue.length > 300) {
+      setTouched(true);
+      setIsDirty(true);
+      validateRule(trimmedValue);
+    } else {
+      dispatch(updatedItem({ item, trimmedValue }));
+      setDisabledNewItem(false);
+    }
   };
 
   const shouldDisplayError = () => {

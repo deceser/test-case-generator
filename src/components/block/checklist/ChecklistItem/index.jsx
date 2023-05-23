@@ -35,7 +35,7 @@ const ItemList = ({ ...props }) => {
           onBlur={(e) => handleBlurItem(e, i.id)}
           handleChangeCheckbox={() => handleChangeCheckbox(i.id, i.isActive)}
           handleClearNewData={() => handleEditItem(i.id)}
-          handleUpdateItem={() => handleUpdateItem(i.id)}
+          handleUpdateItem={() => handleUpdateItem(i)}
           error={errorMessages.filter((item) => item.index === i.index)}
           shouldDisplayError={shouldDisplayError}
         />
