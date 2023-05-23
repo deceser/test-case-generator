@@ -6,16 +6,25 @@ import CloseSvg from "../../../assets/svg/CloseSvg";
 import styles from "./index.module.scss";
 
 const TextFieldUi = ({ ...props }) => {
-  const { placeholder, value, onChange, handleClearInput, disabled, error, register, onBlur } = props;
+  const {
+    placeholder,
+    value,
+    onChange,
+    onBlur,
+    handleClearInput,
+    disabled,
+    error,
+    refRequireInput,
+  } = props;
 
   return (
     <div className={styles.wrapper__textarea}>
       <textarea
-        {...register}
-        onBlur={onBlur}
+        ref={refRequireInput}
         disabled={disabled}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
         placeholder={placeholder}
         className={styles.textarea}
       />

@@ -1,6 +1,6 @@
 import React from "react";
 
-export const useValidation = (validationSettings) => {
+export const useValidation = (validationRules) => {
   const [isValid, setIsValid] = React.useState(true);
   const [errorMessages, setErrorMessages] = React.useState([]);
   const [isDirty, setIsDirty] = React.useState(false);
@@ -9,7 +9,7 @@ export const useValidation = (validationSettings) => {
   const validateRule = (value, customErrorMessages = []) => {
     const regex = /^(?!\s+$).+/;
 
-    const { minLength, maxLength, errorMessage, required } = validationSettings;
+    const { minLength, maxLength, errorMessage, required } = validationRules;
 
     if (value.length === 0) {
       setIsValid(false);
@@ -33,6 +33,7 @@ export const useValidation = (validationSettings) => {
   return {
     isValid,
     errorMessages,
+    setErrorMessages,
     validateRule,
     isDirty,
     setIsDirty,

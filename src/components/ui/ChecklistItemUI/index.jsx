@@ -1,5 +1,6 @@
 import React from "react";
 import TextareaAutosize from "react-textarea-autosize";
+
 import SvgButton from "../buttons/svgbutton";
 import EditSvg from "../../../assets/svg/EditSvg";
 import CheckSvg from "../../../assets/svg/CheckSvg";
@@ -11,10 +12,7 @@ import styles from "./index.module.scss";
 const ChecklistItemUI = ({ children, ...props }) => {
   const {
     id,
-<<<<<<< HEAD
     itemId,
-=======
->>>>>>> 2addf8cb92eaff2be7780f0ae0a72c4d4e1f72fd
     value,
     onChange,
     onBlur,
@@ -26,17 +24,8 @@ const ChecklistItemUI = ({ children, ...props }) => {
     handleChangeCheckbox,
     handleClearNewData,
     handleUpdateItem,
-
-    // -=-=-=-=-=-=-=-=--=-=-
-
-    itemVal,
     errorMessages,
     shouldDisplayError,
-<<<<<<< HEAD
-=======
-
-    // -=-=-=-=-=-=-=-=--=-=-
->>>>>>> 2addf8cb92eaff2be7780f0ae0a72c4d4e1f72fd
   } = props;
 
   const textareaRef = React.useRef(null);
@@ -77,13 +66,16 @@ const ChecklistItemUI = ({ children, ...props }) => {
           placeholder="Type your item here..."
           ref={textareaRef}
         />
-
         {readOnly ? (
           <div className={styles.item__buttons}>
             <SvgButton disabled={showInput || disabled} onClick={handleEditButtonClick}>
               <EditSvg />
             </SvgButton>
-            <CheckBoxUi disabled={showInput || disabled} checked={checked} onChange={handleChangeCheckbox} />
+            <CheckBoxUi
+              disabled={showInput || disabled}
+              checked={checked}
+              onChange={handleChangeCheckbox}
+            />
           </div>
         ) : (
           <div className={styles.item__buttons}>
@@ -96,21 +88,15 @@ const ChecklistItemUI = ({ children, ...props }) => {
           </div>
         )}
       </div>
-<<<<<<< HEAD
       {shouldDisplayError(itemId) && (
         <>
           {errorMessages?.map((errorMessage, index) => (
-=======
-
-      <>
-        {shouldDisplayError &&
-          errorMessages?.map((errorMessage, index) => (
->>>>>>> 2addf8cb92eaff2be7780f0ae0a72c4d4e1f72fd
             <span className={styles.error__message} key={index}>
               {errorMessage}
             </span>
           ))}
-      </>
+        </>
+      )}
     </>
   );
 };

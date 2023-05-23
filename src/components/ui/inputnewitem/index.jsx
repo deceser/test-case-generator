@@ -8,7 +8,8 @@ import CloseSvg from "../../../assets/svg/CloseSvg";
 import styles from "./index.module.scss";
 
 const InputNewItem = ({ children, ...props }) => {
-  const { value, onChange, addNewItem, handleHideInput, items, error, refInputNewItem, onBlur } = props;
+  const { value, onChange, addNewItem, handleHideInput, items, refInputNewItem, error, onBlur } =
+    props;
 
   return (
     <div className={styles.input__container}>
@@ -19,9 +20,9 @@ const InputNewItem = ({ children, ...props }) => {
           minRows={1}
           value={value}
           onChange={onChange}
+          onBlur={onBlur}
           className={styles.input__item}
           placeholder="Type your item here..."
-          onBlur={onBlur}
         />
         <div className={styles.input__buttons}>
           <SvgButton onClick={addNewItem}>
@@ -32,7 +33,7 @@ const InputNewItem = ({ children, ...props }) => {
           </SvgButton>
         </div>
       </div>
-      {error ? <span className={styles.error__message}>{error}</span> : null}
+      <span className={styles.error__message}>{error}</span>
     </div>
   );
 };

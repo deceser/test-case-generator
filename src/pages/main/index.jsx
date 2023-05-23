@@ -4,8 +4,8 @@ import { NavLink } from "react-router-dom";
 
 import { generateChecklist } from "../../redux/slices/requirementSlice";
 import { getItems } from "../../redux/slices/itemSlice";
-
 import { useInput } from "../../hooks/useInput";
+
 import { useFilterItems } from "../../hooks/useFilterItems";
 import { useValidation } from "../../hooks/useValidation";
 
@@ -15,13 +15,16 @@ import { validationRuleRequirementInput } from "../../utils/validation/fields";
 import H1Ui from "../../components/ui/fonts/h1";
 import H3Ui from "../../components/ui/fonts/h3";
 import ParagraphUi from "../../components/ui/fonts/paragraph";
+
 import TextFieldUi from "../../components/ui/requirementTextField";
 import DefaultButton from "../../components/ui/buttons/defaultbutton";
 import TextButton from "../../components/ui/buttons/textbutton";
 import ExportSvg from "../../assets/svg/ExportSvg";
-import CheckList from "../../components/block/checklist/list";
 
 import Loader from "../../components/ui/loader";
+
+import CheckList from "../../components/block/checklist/list";
+
 import styles from "./index.module.scss";
 
 const MainPage = () => {
@@ -30,7 +33,6 @@ const MainPage = () => {
   const items = useSelector((state) => state.items.items);
 
   const checklistId = localStorage.getItem("checklistId");
-  const userId = "9bc8519b-b7d3-4733-cb40-08db458c0aae";
 
   React.useEffect(() => {
     if (checklistId) {
@@ -39,11 +41,30 @@ const MainPage = () => {
   }, [dispatch, checklistId]);
 
   const [showItem, setShowItem] = React.useState(true);
+  const refRequireInput = React.useRef(null);
 
-  const useRequireInput = useInput("");
-  const { isValid, errorMessages, validateRule, isDirty, setIsDirty, isTouched, setTouched, resetErrors } =
-    useValidation(validationRuleRequirementInput);
   const filteredItems = useFilterItems(showItem, items);
+  const {
+    isValid,
+    errorMessages,
+    validateRule,
+    isDirty,
+    setIsDirty,
+    isTouched,
+    setTouched,
+    resetErrors,
+  } = useValidation(validationRuleRequirementInput);
+  const useRequireInput = useInput("");
+
+  const handleClearInput = () => {
+    useRequireInput.clearInput();
+    resetErrors();
+  };
+
+  const handleInputChange = (event) => {
+    useRequireInput.onChange(event);
+    setIsDirty(true);
+  };
 
   const handleRequirementBlur = () => {
     setTouched(true);
@@ -52,28 +73,27 @@ const MainPage = () => {
     }
   };
 
-  const handleInputChange = (event) => {
-    useRequireInput.onChange(event);
-    setIsDirty(true);
-  };
-
-  const handleClearInput = () => {
-    useRequireInput.clearInput();
-    resetErrors();
-  };
-
   const shouldDisplayError = () => {
     return isDirty && isTouched && !isValid;
   };
 
+  const userId = "9bc8519b-b7d3-4733-cb40-08db458c0aae";
+
   const handleSubmitRequirementText = () => {
-    if (!useRequireInput.value.trim() || useRequireInput.value.length < 5 || useRequireInput.value.length > 2500) {
+    if (
+      !useRequireInput.value.trim() ||
+      useRequireInput.value.length < 5 ||
+      useRequireInput.value.length > 2500
+    ) {
       setTouched(true);
       setIsDirty(true);
       validateRule(useRequireInput.value);
     } else {
       dispatch(generateChecklist({ data: useRequireInput.value, userId }));
     }
+    setTimeout(() => {
+      refRequireInput.current.focus();
+    });
   };
 
   const toggleShowItem = () => {
@@ -94,8 +114,8 @@ const MainPage = () => {
           </div>
           <div>
             <ParagraphUi>
-              Easily generate and export checklists and test cases. &nbsp; Get more relevant results by entering all the required
-              data. Find more information about &nbsp;
+              Easily generate and export checklists and test cases. &nbsp; Get more relevant results
+              by entering all the required data. Find more information about &nbsp;
               <NavLink>how it works</NavLink>
             </ParagraphUi>
           </div>
@@ -108,16 +128,18 @@ const MainPage = () => {
             onChange={handleInputChange}
             onBlur={handleRequirementBlur}
             placeholder="Enter your requirements..."
+            refRequireInput={refRequireInput}
             error={
               shouldDisplayError() &&
-              errorMessages.map((errorMessage, index) => <React.Fragment key={index}>{errorMessage}</React.Fragment>)
+              errorMessages.map((errorMessage, index) => (
+                <React.Fragment key={index}>{errorMessage}</React.Fragment>
+              ))
             }
           />
           <DefaultButton
             onClick={handleSubmitRequirementText}
             disabled={statusRequirement === "loading" || items.length}
             styleType="main"
-            type="submit"
           >
             Generate checklist
           </DefaultButton>

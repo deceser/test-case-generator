@@ -11,3 +11,10 @@ export const validationRuleNewItem = {
   maxLength: 300,
   errorMessage: "The requirement must be between 3 and 300 characters.",
 };
+
+export const validationRuleChecklistItem = {
+  required: "The requirement field is required.",
+  minLength: 3,
+  maxLength: 300,
+  errorMessage: "The requirement must be between 3 and 300 characters.",
+};

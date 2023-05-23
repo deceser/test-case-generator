@@ -12,17 +12,13 @@ const ItemList = ({ ...props }) => {
     handleChangeCheckbox,
     handleEditItem,
     handleChangeItem,
-    handleUpdateItem,
     handleBlurItem,
-
-    // =-=-=-=-=--=-=-=-
-    errorMessages,
-<<<<<<< HEAD
-=======
+    handleUpdateItem,
     shouldDisplayError,
-    // =-=-=-=-=--=-=-=-
->>>>>>> 2addf8cb92eaff2be7780f0ae0a72c4d4e1f72fd
+    errorMessages,
   } = props;
+
+  console.log(errorMessages);
 
   return (
     <div className={styles.item}>
@@ -37,22 +33,13 @@ const ItemList = ({ ...props }) => {
           checked={i.isActive}
           readOnly={!i.isEdit}
           handleEditItem={() => handleEditItem(i.id)}
-          onChange={(e) => handleChangeItem(e, i.id)}
-          onBlur={(e) => handleBlurItem(e, i.id)}
+          onChange={(e) => handleChangeItem(e, i)}
           handleChangeCheckbox={() => handleChangeCheckbox(i.id, i.isActive)}
+          onBlur={(e) => handleBlurItem(e, i.id)}
           handleClearNewData={() => handleEditItem(i.id)}
           handleUpdateItem={() => handleUpdateItem(i)}
-<<<<<<< HEAD
           shouldDisplayError={() => shouldDisplayError(i.id)}
           errorMessages={errorMessages}
-=======
-          // =-=-=-=-=--=-=-=-
-
-          errorMessages={errorMessages}
-          shouldDisplayError={shouldDisplayError}
-
-          // =-=-=-=-=--=-=-=-
->>>>>>> 2addf8cb92eaff2be7780f0ae0a72c4d4e1f72fd
         />
       ))}
     </div>
