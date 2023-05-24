@@ -11,7 +11,7 @@ export const useValidation = (validationRules) => {
 
     const { minLength, maxLength, errorMessage, required } = validationRules;
 
-    if (value.length === 0) {
+    if (value.trim().length === 0) {
       setIsValid(false);
       setErrorMessages([required, ...customErrorMessages]);
     } else if (value.length < minLength || value.length > maxLength) {

@@ -56,6 +56,7 @@ const ChecklistItemUI = ({ children, ...props }) => {
       <div className={typeStyleItem.join(" ")}>
         <span className={styles.item__id}>{id}</span>
         <TextareaAutosize
+          autoFocus
           minRows={1}
           maxLength={300}
           value={value}
@@ -71,11 +72,7 @@ const ChecklistItemUI = ({ children, ...props }) => {
             <SvgButton disabled={showInput || disabled} onClick={handleEditButtonClick}>
               <EditSvg />
             </SvgButton>
-            <CheckBoxUi
-              disabled={showInput || disabled}
-              checked={checked}
-              onChange={handleChangeCheckbox}
-            />
+            <CheckBoxUi disabled={showInput || disabled} checked={checked} onChange={handleChangeCheckbox} />
           </div>
         ) : (
           <div className={styles.item__buttons}>

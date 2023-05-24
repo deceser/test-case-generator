@@ -17,16 +17,14 @@ const AddNewItem = ({ ...props }) => {
   const refInputNewItem = React.useRef(null);
   const useInputNewItem = useInput("", false);
 
-  const {
-    isValid,
-    errorMessages,
-    validateRule,
-    isDirty,
-    setIsDirty,
-    isTouched,
-    setTouched,
-    resetErrors,
-  } = useValidation(validationRuleNewItem);
+  const { isValid, errorMessages, validateRule, isDirty, setIsDirty, isTouched, setTouched, resetErrors } =
+    useValidation(validationRuleNewItem);
+
+  React.useEffect(() => {
+    if (showNewItemInput && refInputNewItem.current) {
+      refInputNewItem.current.focus();
+    }
+  }, [showNewItemInput]);
 
   const handleHideInput = () => {
     setShowNewItemInput(!showNewItemInput);
@@ -44,10 +42,10 @@ const AddNewItem = ({ ...props }) => {
       setTouched(true);
       setIsDirty(true);
       validateRule(trimmedValue);
+      refInputNewItem.current.focus();
     } else {
       dispatch(addNewItem(item));
       handleHideInput();
-      useInputNewItem.setValue("");
     }
   };
 
@@ -78,9 +76,7 @@ const AddNewItem = ({ ...props }) => {
       onBlur={handleNewItemBlur}
       error={
         shouldDisplayError() &&
-        errorMessages.map((errorMessage, index) => (
-          <React.Fragment key={index}>{errorMessage}</React.Fragment>
-        ))
+        errorMessages.map((errorMessage, index) => <React.Fragment key={index}>{errorMessage}</React.Fragment>)
       }
     />
   );

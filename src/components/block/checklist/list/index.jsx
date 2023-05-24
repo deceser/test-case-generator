@@ -29,22 +29,15 @@ const CheckList = ({ ...props }) => {
   const [showNewItemInput, setShowNewItemInput] = React.useState(false);
   const [selectedItemId, setSelectedItemId] = React.useState(null);
 
-  const {
-    isValid,
-    errorMessages,
-    validateRule,
-    isDirty,
-    setIsDirty,
-    isTouched,
-    setTouched,
-    resetErrors,
-  } = useValidation(validationRuleChecklistItem);
+  const { isValid, errorMessages, validateRule, isDirty, setIsDirty, isTouched, setTouched, resetErrors } =
+    useValidation(validationRuleChecklistItem);
 
   const handleEditItem = (id) => {
     dispatch(toggleEdit({ id }));
-    setDisabledNewItem(true);
     resetErrors();
     setSelectedItemId(id);
+
+    setDisabledNewItem((prevDisabled) => !prevDisabled);
   };
 
   const handleBlurItem = (event, id) => {
