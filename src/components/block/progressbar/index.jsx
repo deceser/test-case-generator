@@ -10,11 +10,7 @@ const ProgressBar = () => {
 
   return (
     <div className={styles.progressBar}>
-      <ProgressLinks
-        progressLink={progressLinks}
-        activeLink={activeLink}
-        setActiveLink={setActiveLink}
-      />
+      <ProgressLinks progressLink={progressLinks} activeLink={activeLink} setActiveLink={setActiveLink} />
     </div>
   );
 };

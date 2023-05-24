@@ -13,11 +13,17 @@ export const generateChecklist = createAsyncThunk(
     try {
       const response = await requirementService.generateChecklist(data, userId);
 
+      console.log("after");
+
+      // window.location.href = "#checklist";
+
+      console.log("before");
+
       return response.data;
     } catch (error) {
       return rejectWithValue(null);
     }
-  },
+  }
 );
 
 const setLoading = (state) => {

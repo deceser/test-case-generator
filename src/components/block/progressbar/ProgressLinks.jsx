@@ -17,17 +17,11 @@ const ProgressLinks = ({ ...props }) => {
           smooth
           key={index}
           to={item.path}
-          className={`${styles.number} ${
-            activeLink === item.title ? styles.active : ""
-          } `}
+          className={`${styles.number} ${activeLink === item.title ? styles.active : ""} `}
           onClick={() => delayedSetActiveLink(item.title)}
         >
           {item.number}
-          <div
-            className={`${styles.line} ${
-              activeLink === item.title ? styles.active : ""
-            } `}
-          />
+          <div className={`${styles.line} ${activeLink === item.title ? styles.active : ""} `} />
         </HashLink>
       ))}
     </>

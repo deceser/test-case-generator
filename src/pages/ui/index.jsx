@@ -42,9 +42,8 @@ const UiPage = () => {
       <div className={styles.fonts}>
         <H1Ui>Test Case Generator</H1Ui>
         <ParagraphUi>
-          Easily generate and export checklists and test cases. Get more
-          relevant results by entering all the required data. Find more
-          information about
+          Easily generate and export checklists and test cases. Get more relevant results by entering all the required data. Find
+          more information about
         </ParagraphUi>
       </div>
       <div>
