@@ -30,7 +30,10 @@ import styles from "./index.module.scss";
 const MainPage = () => {
   const dispatch = useDispatch();
   const statusRequirement = useSelector((state) => state.requirement.status);
+  const statusGetItems = useSelector((state) => state.items.status);
   const items = useSelector((state) => state.items.items);
+
+  console.log(statusGetItems);
 
   const checklistId = localStorage.getItem("checklistId");
 
@@ -141,7 +144,7 @@ const MainPage = () => {
             </TextButton>
           </div>
         ) : null}
-        {statusRequirement === "loading" ? (
+        {statusRequirement === "loading" || statusGetItems === "loading" ? (
           <div className={styles.loaderSectionWrapper}>
             <Loader />
           </div>
