@@ -132,29 +132,33 @@ const MainPage = () => {
         </div>
       </div>
 
-      {checklistId ? (
-        <div id="checklist" className={styles.procesingblock}>
-          <H3Ui>Test checklist</H3Ui>
-          <TextButton styleType="visible" onClick={handleDownload} icon={<ExportSvg />}>
-            Export checklist
-          </TextButton>
-        </div>
-      ) : null}
-      {statusRequirement === "loading" ? (
-        <Loader />
-      ) : items.length ? (
-        <div className={styles.checklistblock}>
-          <CheckList
-            checklistId={checklistId}
-            toggleShowItem={toggleShowItem}
-            filteredItems={filteredItems}
-            showItem={showItem}
-          />
-          <DefaultButton disabled={true} styleType="main">
-            Generate test cases
-          </DefaultButton>
-        </div>
-      ) : null}
+      <div id="checklist" className={styles.checklistWrapper}>
+        {checklistId ? (
+          <div className={styles.procesingblock}>
+            <H3Ui>Test checklist</H3Ui>
+            <TextButton styleType="visible" onClick={handleDownload} icon={<ExportSvg />}>
+              Export checklist
+            </TextButton>
+          </div>
+        ) : null}
+        {statusRequirement === "loading" ? (
+          <div className={styles.loaderSectionWrapper}>
+            <Loader />
+          </div>
+        ) : items.length ? (
+          <div className={styles.checklistblock}>
+            <CheckList
+              checklistId={checklistId}
+              toggleShowItem={toggleShowItem}
+              filteredItems={filteredItems}
+              showItem={showItem}
+            />
+            <DefaultButton disabled={true} styleType="main">
+              Generate test cases
+            </DefaultButton>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 };

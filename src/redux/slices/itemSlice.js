@@ -12,6 +12,17 @@ const initialState = {
 export const getItems = createAsyncThunk("items/getItems", async ({ id }, { rejectWithValue }) => {
   try {
     const response = await checklistService.getChecklistItems(id);
+    // TODO :: Should move to better place for better solution
+    window.location.href = "#checklist";
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(null);
+  }
+});
+
+export const addNewItem = createAsyncThunk("items/addNewItem", async (item, { rejectWithValue }) => {
+  try {
+    const response = await checkService.createItem(item.name, item.isActive, item.checkListId);
 
     return response.data;
   } catch (error) {
@@ -19,99 +30,77 @@ export const getItems = createAsyncThunk("items/getItems", async ({ id }, { reje
   }
 });
 
-export const addNewItem = createAsyncThunk(
-  "items/addNewItem",
-  async (item, { rejectWithValue }) => {
-    try {
-      const response = await checkService.createItem(item.name, item.isActive, item.checkListId);
+export const updatedItem = createAsyncThunk("items/updateItem", async ({ item, trimmedValue }, { rejectWithValue, dispatch }) => {
+  try {
+    const response = await checkService.updateItem(item.id, {
+      key: "/name",
+      value: trimmedValue,
+    });
+    dispatch(updateItem({ ...item, name: trimmedValue }));
+    return response.data;
+  } catch (error) {
+    rejectWithValue(null);
+  }
+});
 
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(null);
-    }
-  },
-);
+export const toggleStatus = createAsyncThunk("items/toggleStatus", async (id, { rejectWithValue, dispatch, getState }) => {
+  try {
+    const item = getState().items.items.find((i) => i.id === id);
+    const isActive = !item.isActive;
+    const response = await checkService.updateItem(id, {
+      key: "/isActive",
+      value: isActive,
+    });
 
-export const updatedItem = createAsyncThunk(
-  "items/updateItem",
-  async ({ item, trimmedValue }, { rejectWithValue, dispatch }) => {
-    try {
-      const response = await checkService.updateItem(item.id, {
-        key: "/name",
-        value: trimmedValue,
+    dispatch(toggleCompleted({ id }));
+    return response.data;
+  } catch (error) {
+    rejectWithValue(null);
+  }
+});
+
+export const toggleStatusAll = createAsyncThunk("items/toggleStatusAll", async (_, { rejectWithValue, dispatch, getState }) => {
+  try {
+    const state = getState().items;
+    const initialItems = state.items;
+    // Create a new array that contains all items with their isActive values toggled
+    const updatedItems = state.items
+      .map((item) => ({
+        id: item.id,
+        isActive: !state.isAllSelected,
+        parentId: item.checkListId,
+      }))
+      .filter((updatedItem, index) => {
+        const initialItem = initialItems[index];
+        return updatedItem.isActive !== initialItem.isActive;
       });
-      dispatch(updateItem({ ...item, name: trimmedValue }));
-      return response.data;
-    } catch (error) {
-      rejectWithValue(null);
-    }
-  },
-);
+    // Send only changed items to the server
+    const response = await checklistService.toggleStatusAll(updatedItems);
+    // We form a new array of elements based on the initial state
+    const updatedItemsFull = initialItems.map((initialItem, index) => {
+      const updatedItem = updatedItems.find((item) => item.id === initialItem.id);
+      if (updatedItem) {
+        return updatedItem;
+      }
+      return initialItem;
+    });
+    // Check if among the updated elements there are inactive ones
+    const hasFalse = updatedItemsFull.some((i) => i.isActive === false);
+    // If there are inactive elements, then change the state to false
+    // Otherwise to true
+    const newIsAllCheckboxesSelected = !hasFalse;
+    // Dispatch the toggleSelectAll action with a new state for isAllSelect
+    dispatch(
+      toggleSelectAll({
+        isAllSelected: newIsAllCheckboxesSelected,
+      })
+    );
 
-export const toggleStatus = createAsyncThunk(
-  "items/toggleStatus",
-  async (id, { rejectWithValue, dispatch, getState }) => {
-    try {
-      const item = getState().items.items.find((i) => i.id === id);
-      const isActive = !item.isActive;
-      const response = await checkService.updateItem(id, {
-        key: "/isActive",
-        value: isActive,
-      });
-
-      dispatch(toggleCompleted({ id }));
-      return response.data;
-    } catch (error) {
-      rejectWithValue(null);
-    }
-  },
-);
-
-export const toggleStatusAll = createAsyncThunk(
-  "items/toggleStatusAll",
-  async (_, { rejectWithValue, dispatch, getState }) => {
-    try {
-      const state = getState().items;
-      const initialItems = state.items;
-      // Create a new array that contains all items with their isActive values toggled
-      const updatedItems = state.items
-        .map((item) => ({
-          id: item.id,
-          isActive: !state.isAllSelected,
-          parentId: item.checkListId,
-        }))
-        .filter((updatedItem, index) => {
-          const initialItem = initialItems[index];
-          return updatedItem.isActive !== initialItem.isActive;
-        });
-      // Send only changed items to the server
-      const response = await checklistService.toggleStatusAll(updatedItems);
-      // We form a new array of elements based on the initial state
-      const updatedItemsFull = initialItems.map((initialItem, index) => {
-        const updatedItem = updatedItems.find((item) => item.id === initialItem.id);
-        if (updatedItem) {
-          return updatedItem;
-        }
-        return initialItem;
-      });
-      // Check if among the updated elements there are inactive ones
-      const hasFalse = updatedItemsFull.some((i) => i.isActive === false);
-      // If there are inactive elements, then change the state to false
-      // Otherwise to true
-      const newIsAllCheckboxesSelected = !hasFalse;
-      // Dispatch the toggleSelectAll action with a new state for isAllSelect
-      dispatch(
-        toggleSelectAll({
-          isAllSelected: newIsAllCheckboxesSelected,
-        }),
-      );
-
-      return response.data;
-    } catch (error) {
-      rejectWithValue(null);
-    }
-  },
-);
+    return response.data;
+  } catch (error) {
+    rejectWithValue(null);
+  }
+});
 
 const setLoading = (state) => {
   state.status = "loading";
@@ -222,13 +211,6 @@ export const itemsSlice = createSlice({
   },
 });
 
-export const {
-  toggleCompleted,
-  toggleSelectAll,
-  removeItem,
-  toggleEdit,
-  updateItem,
-  onChangeItemUpdate,
-} = itemsSlice.actions;
+export const { toggleCompleted, toggleSelectAll, removeItem, toggleEdit, updateItem, onChangeItemUpdate } = itemsSlice.actions;
 
 export default itemsSlice.reducer;
