@@ -133,7 +133,7 @@ const MainPage = () => {
       </div>
 
       {checklistId ? (
-        <div className={styles.procesingblock}>
+        <div id="checklist" className={styles.procesingblock}>
           <H3Ui>Test checklist</H3Ui>
           <TextButton styleType="visible" onClick={handleDownload} icon={<ExportSvg />}>
             Export checklist

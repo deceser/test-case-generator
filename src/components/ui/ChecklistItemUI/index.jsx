@@ -56,7 +56,6 @@ const ChecklistItemUI = ({ children, ...props }) => {
       <div className={typeStyleItem.join(" ")}>
         <span className={styles.item__id}>{id}</span>
         <TextareaAutosize
-          autoFocus
           minRows={1}
           maxLength={300}
           value={value}
