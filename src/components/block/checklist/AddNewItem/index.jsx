@@ -1,14 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { addNewItem } from "../../../../redux/slices/itemSlice";
+import { addNewItem } from "src/redux/slices/itemSlice";
 
-import { useInput } from "../../../../hooks/useInput";
-import { useValidation } from "../../../../hooks/useValidation";
+import { useInput } from "src/hooks/useInput";
+import { useValidation } from "src/hooks/useValidation";
 
-import { validationRuleNewItem } from "../../../../utils/validation/fields";
+import { validationRuleNewItem } from "src/utils/validation/fields";
 
-import InputNewItem from "../../../ui/inputnewitem";
+import InputNewItem from "src/components/ui/inputNewItem";
 
 const AddNewItem = ({ ...props }) => {
   const { checklistId, filteredItems, setShowNewItemInput, showNewItemInput } = props;
@@ -17,52 +17,78 @@ const AddNewItem = ({ ...props }) => {
   const refInputNewItem = React.useRef(null);
   const useInputNewItem = useInput("", false);
 
-  const { isValid, errorMessages, validateRule, isDirty, setIsDirty, isTouched, setTouched, resetErrors } =
-    useValidation(validationRuleNewItem);
+  const {
+    errorMessages,
+    validateRule,
+    isDirty,
+    setIsDirty,
+    isSpecialCondition,
+    setSpecialCondition,
+    resetErrors,
+  } = useValidation(validationRuleNewItem);
 
   React.useEffect(() => {
     if (showNewItemInput && refInputNewItem.current) {
       refInputNewItem.current.focus();
+      setIsDirty(true);
+      validateRule(validationRuleNewItem);
     }
   }, [showNewItemInput]);
+
+  const doValidation = (event) => {
+    useInputNewItem.onChange(event);
+    const updatedValue = event.target.value;
+    if (!isDirty && !isSpecialCondition) return;
+    validateRule(updatedValue);
+  };
+
+  const handleNewItemFocus = (event) => {
+    useInputNewItem.onChange(event);
+    if (event.target.value.length < 1);
+    doValidation(event);
+  };
+
+  const handleNewItemChange = (event) => {
+    useInputNewItem.onChange(event);
+    if (
+      (isSpecialCondition && event.target.value.length < 300) ||
+      (isSpecialCondition && event.target.value.length > 3)
+    ) {
+      if (!isSpecialCondition) setSpecialCondition(true);
+      doValidation(event);
+    }
+  };
+  const handleNewItemBlur = (event) => {
+    useInputNewItem.onChange(event);
+    if (event.target.value.length < 1);
+    setSpecialCondition(true);
+    doValidation(event);
+  };
 
   const handleHideInput = () => {
     setShowNewItemInput(!showNewItemInput);
     useInputNewItem.setValue("");
-    setTimeout(() => {
-      refInputNewItem.current.focus();
-    });
+
     resetErrors();
+    setIsDirty(false);
+    setSpecialCondition(false);
   };
 
   const addItem = () => {
     const trimmedValue = useInputNewItem.value.trim().replace(/\n\s+/g, "\n");
     const item = { name: trimmedValue, checkListId: checklistId };
     if (!trimmedValue || trimmedValue.length < 3 || trimmedValue.length > 300) {
-      setTouched(true);
       setIsDirty(true);
+      setSpecialCondition(true);
       validateRule(trimmedValue);
-      refInputNewItem.current.focus();
     } else {
       dispatch(addNewItem(item));
       handleHideInput();
     }
   };
 
-  const handleNewItemBlur = () => {
-    setTouched(true);
-    if (isDirty) {
-      validateRule(useInputNewItem.value);
-    }
-  };
-
-  const handleNewItemChange = (event) => {
-    useInputNewItem.onChange(event);
-    setIsDirty(true);
-  };
-
   const shouldDisplayError = () => {
-    return isDirty && isTouched && !isValid;
+    return isDirty;
   };
 
   return (
@@ -74,9 +100,12 @@ const AddNewItem = ({ ...props }) => {
       handleHideInput={handleHideInput}
       onChange={handleNewItemChange}
       onBlur={handleNewItemBlur}
+      onFocus={handleNewItemFocus}
       error={
         shouldDisplayError() &&
-        errorMessages.map((errorMessage, index) => <React.Fragment key={index}>{errorMessage}</React.Fragment>)
+        errorMessages.map((errorMessage, index) => (
+          <React.Fragment key={index}>{errorMessage}</React.Fragment>
+        ))
       }
     />
   );

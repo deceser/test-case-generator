@@ -6,14 +6,14 @@ export const validationRuleRequirementInput = {
 };
 
 export const validationRuleNewItem = {
-  required: "The requirement field is required.",
+  required: "The checklist item cannot be empty.",
   minLength: 3,
   maxLength: 300,
   errorMessage: "The requirement must be between 3 and 300 characters.",
 };
 
 export const validationRuleChecklistItem = {
-  required: "The requirement field is required.",
+  required: "The checklist item cannot be empty.",
   minLength: 3,
   maxLength: 300,
   errorMessage: "The requirement must be between 3 and 300 characters.",

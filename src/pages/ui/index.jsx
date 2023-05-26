@@ -1,23 +1,23 @@
 import React from "react";
 
-import DefaultButton from "../../components/ui/buttons/defaultbutton";
-import SmallButtom from "../../components/ui/buttons/smallbutton";
-import SvgButton from "../../components/ui/buttons/svgbutton";
-import TextButton from "../../components/ui/buttons/textbutton";
+import DefaultButton from "src/components/ui/buttons/defaultbutton";
+import SmallButtom from "src/components/ui/buttons/smallbutton";
+import SvgButton from "src/components/ui/buttons/svgbutton";
+import TextButton from "src/components/ui/buttons/textbutton";
 
-import H1Ui from "../../components/ui/fonts/h1";
-import ParagraphUi from "../../components/ui/fonts/paragraph";
+import H1Ui from "src/components/ui/fonts/h1";
+import ParagraphUi from "src/components/ui/fonts/paragraph";
 
-import TextFieldUi from "../../components/ui/requirementTextField";
-import ProgressBar from "../../components/block/progressbar";
+import TextFieldUi from "src/components/ui/requirementTextField";
+import ProgressBar from "src/components/block/navigation";
 
-import CheckList from "../../components/block/checklist/list";
-import ItemUi from "../../components/ui/ChecklistItemUI";
+import CheckList from "src/components/block/checklist/list";
+import ItemUi from "src/components/ui/ChecklistItemUI";
 
-import CloseSvg from "../../assets/svg/CloseSvg";
-import PlusSvg from "../../assets/svg/PlusSvg";
-import EyeSvg from "../../assets/svg/EyeSvg";
-import CheckBoxUi from "../../components/ui/checkbox";
+import CloseSvg from "src/assets/svg/CloseSvg";
+import PlusSvg from "src/assets/svg/PlusSvg";
+import EyeSvg from "src/assets/svg/EyeSvg";
+import CheckBoxUi from "src/components/ui/checkbox";
 
 import styles from "./index.module.scss";
 
@@ -42,8 +42,8 @@ const UiPage = () => {
       <div className={styles.fonts}>
         <H1Ui>Test Case Generator</H1Ui>
         <ParagraphUi>
-          Easily generate and export checklists and test cases. Get more relevant results by entering all the required data. Find
-          more information about
+          Easily generate and export checklists and test cases. Get more relevant results by
+          entering all the required data. Find more information about
         </ParagraphUi>
       </div>
       <div>

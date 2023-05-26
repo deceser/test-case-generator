@@ -2,27 +2,34 @@ import React from "react";
 
 export const useValidation = (validationRules) => {
   const [isValid, setIsValid] = React.useState(true);
-  const [errorMessages, setErrorMessages] = React.useState([]);
   const [isDirty, setIsDirty] = React.useState(false);
-  const [isTouched, setTouched] = React.useState(false);
+  const [isSpecialCondition, setSpecialCondition] = React.useState(false);
+  const [errorMessages, setErrorMessages] = React.useState([]);
 
-  const validateRule = (value, customErrorMessages = []) => {
+  const validateRule = (value) => {
     const regex = /^(?!\s+$).+/;
 
     const { minLength, maxLength, errorMessage, required } = validationRules;
 
-    if (value.trim().length === 0) {
+    setIsValid(true);
+    setErrorMessages([]);
+
+    if (value.length < 1) {
       setIsValid(false);
-      setErrorMessages([required, ...customErrorMessages]);
-    } else if (value.length < minLength || value.length > maxLength) {
+      setErrorMessages([required]);
+      return;
+    }
+
+    if (value.length < minLength || value.length > maxLength) {
       setIsValid(false);
-      setErrorMessages([errorMessage, ...customErrorMessages]);
-    } else if (!regex.test(value)) {
+      setErrorMessages([errorMessage]);
+      return;
+    }
+
+    if (!regex.test(value)) {
       setIsValid(false);
-      setErrorMessages([errorMessage, ...customErrorMessages]);
-    } else {
-      setIsValid(true);
-      setErrorMessages([...customErrorMessages]);
+      setErrorMessages([errorMessage]);
+      return;
     }
   };
 
@@ -37,8 +44,8 @@ export const useValidation = (validationRules) => {
     validateRule,
     isDirty,
     setIsDirty,
-    isTouched,
-    setTouched,
+    isSpecialCondition,
+    setSpecialCondition,
     resetErrors,
   };
 };

@@ -1,12 +1,11 @@
-@import "../../../styles/variables";
+@import "src/styles/variables";
 
 .loader {
   width: 70.4px;
   height: 70.4px;
   color: $color-lilac;
-  background: linear-gradient(currentColor 0 0),
-    linear-gradient(currentColor 0 0), linear-gradient(currentColor 0 0),
-    linear-gradient(currentColor 0 0);
+  background: linear-gradient(currentColor 0 0), linear-gradient(currentColor 0 0),
+    linear-gradient(currentColor 0 0), linear-gradient(currentColor 0 0);
   background-size: 36.2px 36.2px;
   background-repeat: no-repeat;
   animation: loader-33 1.2000000000000002s infinite cubic-bezier(0.3, 1, 0, 1);
