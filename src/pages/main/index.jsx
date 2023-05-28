@@ -95,6 +95,8 @@ const MainPage = () => {
     downloadCVS(filteredItems, checklistId);
   };
 
+  const statusActiveItems = items.every((item) => item.isActive === false);
+
   return (
     <div className={styles.main__page}>
       <div className={styles.generateblock}>
@@ -139,7 +141,7 @@ const MainPage = () => {
         {checklistId ? (
           <div className={styles.procesingblock}>
             <H3Ui>Test checklist</H3Ui>
-            <TextButton styleType="visible" onClick={handleDownload} icon={<ExportSvg />}>
+            <TextButton styleType="visible" onClick={handleDownload} icon={<ExportSvg />} disabled={statusActiveItems}>
               Export checklist
             </TextButton>
           </div>

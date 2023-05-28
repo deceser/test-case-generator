@@ -141,9 +141,9 @@ const CheckList = ({ ...props }) => {
           <TextButton
             styleType={!isAllSelected ? "visible" : "hidden"}
             onClick={toggleShowItem}
-            icon={!showItem ? <HideEyeSvg /> : <EyeSvg />}
+            icon={showItem ? <EyeSvg /> : <HideEyeSvg />}
           >
-            {!showItem ? "Hide disabled" : "Show disabled"}
+            {showItem ? "Show disabled" : "Hide disabled"}
           </TextButton>
         </div>
       </div>
