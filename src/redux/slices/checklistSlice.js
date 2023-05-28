@@ -1,20 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import checklistService from "../../services/checklist.service";
+import checklistService from "src/services/checklist.service";
 
 const initialState = {
   checklist: [],
   status: "idle",
 };
 
-export const getChecklist = createAsyncThunk("checklist/getChecklist", async (_, { rejectWithValue }) => {
-  try {
-    const response = await checklistService.getChecklist();
-    return response.data;
-  } catch (error) {
-    return rejectWithValue(null);
-  }
-});
+export const getChecklist = createAsyncThunk(
+  "checklist/getChecklist",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await checklistService.getChecklist();
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(null);
+    }
+  },
+);
 
 const setLoading = (state) => {
   state.status = "loading";
@@ -40,7 +43,14 @@ export const checklistSlice = createSlice({
   },
 });
 
-export const { addItem, toggleCompleted, toggleSelectAll, romoveItem, toggleEdit, updateItem, toggleShowItem } =
-  checklistSlice.actions;
+export const {
+  addItem,
+  toggleCompleted,
+  toggleSelectAll,
+  romoveItem,
+  toggleEdit,
+  updateItem,
+  toggleShowItem,
+} = checklistSlice.actions;
 
 export default checklistSlice.reducer;

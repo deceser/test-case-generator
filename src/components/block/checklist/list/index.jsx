@@ -1,21 +1,21 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { updatedItem, toggleStatus, toggleStatusAll } from "../../../../redux/slices/itemSlice";
-import { toggleEdit, onChangeItemUpdate } from "../../../../redux/slices/itemSlice";
+import { updatedItem, toggleStatus, toggleStatusAll } from "src/redux/slices/itemSlice";
+import { toggleEdit, onChangeItemUpdate } from "src/redux/slices/itemSlice";
 
-import { useValidation } from "../../../../hooks/useValidation";
-import { validationRuleChecklistItem } from "../../../../utils/validation/fields";
+import { useValidation } from "src/hooks/useValidation";
+import { validationRuleChecklistItem } from "src/utils/validation/fields";
 
 import AddNewItem from "../AddNewItem";
 import ChecklistItem from "../ChecklistItem";
 
-import TextButton from "../../../ui/buttons/textbutton";
-import CheckBoxUi from "../../../ui/checkbox";
+import TextButton from "src/components/ui/buttons/textbutton";
+import CheckBoxUi from "src/components/ui/checkbox";
 
-import PlusSvg from "../../../../assets/svg/PlusSvg";
-import EyeSvg from "../../../../assets/svg/EyeSvg";
-import HideEyeSvg from "../../../../assets/svg/HideEyeSvg";
+import PlusSvg from "src/assets/svg/PlusSvg";
+import EyeSvg from "src/assets/svg/EyeSvg";
+import HideEyeSvg from "src/assets/svg/HideEyeSvg";
 
 import styles from "./index.module.scss";
 
@@ -29,39 +29,56 @@ const CheckList = ({ ...props }) => {
   const [showNewItemInput, setShowNewItemInput] = React.useState(false);
   const [selectedItemId, setSelectedItemId] = React.useState(null);
 
-  const { isValid, errorMessages, validateRule, isDirty, setIsDirty, isTouched, setTouched, resetErrors } =
+  const { errorMessages, validateRule, isDirty, setIsDirty, isSpecialCondition, setSpecialCondition, resetErrors } =
     useValidation(validationRuleChecklistItem);
 
   const handleEditItem = (id) => {
     dispatch(toggleEdit({ id }));
-    resetErrors();
     setSelectedItemId(id);
+
+    setIsDirty(!disabledNewItem);
+    setSpecialCondition(!disabledNewItem);
 
     setDisabledNewItem((prevDisabled) => !prevDisabled);
   };
 
-  const handleBlurItem = (event, id) => {
-    setTouched(true);
-    if (isDirty) {
-      const updatedValue = event.target.value;
-      const item = { id, name: updatedValue };
-      dispatch(onChangeItemUpdate(item));
-      validateRule(updatedValue);
-    }
+  const doValidation = (event) => {
+    const updatedValue = event.target.value;
+
+    resetErrors();
+    if (!isDirty) return;
+    validateRule(updatedValue);
+  };
+
+  const handleBlurItem = async (event, id) => {
+    const updatedValue = event.target.value;
+    const item = { id, name: updatedValue };
+    dispatch(onChangeItemUpdate(item));
+
+    doValidation(event);
+  };
+
+  const handleFocusItem = (event) => {
+    doValidation(event);
   };
 
   const handleChangeItem = (event, i) => {
     const updatedValue = event.target.value;
     const item = { ...i, name: updatedValue };
     dispatch(onChangeItemUpdate(item));
+
+    if (isSpecialCondition || event.target.value.length > 3) {
+      if (!isSpecialCondition) setSpecialCondition(true);
+      doValidation(event);
+    }
   };
 
   const handleSubmitUpdateItem = (i) => {
     const trimmedValue = i.name.trim().replace(/\n\s+/g, "\n");
     const item = { ...i, name: trimmedValue };
     if (!trimmedValue || trimmedValue.length < 3 || trimmedValue.length > 300) {
-      setTouched(true);
       setIsDirty(true);
+      setSpecialCondition(true);
       validateRule(trimmedValue);
     } else {
       dispatch(updatedItem({ item, trimmedValue }));
@@ -83,11 +100,11 @@ const CheckList = ({ ...props }) => {
 
   const shouldDisplayError = (id) => {
     if (id === selectedItemId) {
-      return isDirty && isTouched && !isValid;
+      return isDirty;
     }
   };
 
-  const disabledItem = () => filteredItems.some((i) => i.isEdit);
+  const disabledAllItem = () => filteredItems.some((i) => i.isEdit);
 
   return (
     <div className={styles.checklist}>
@@ -101,24 +118,25 @@ const CheckList = ({ ...props }) => {
         <div className={styles.top__right}>
           <h4>Select all</h4>
           <CheckBoxUi
-            showInput={showNewItemInput}
-            disabled={disabledItem(filteredItems)}
             checked={isAllSelected}
+            showInput={showNewItemInput}
             onChange={handleChangeAllCheckboxes}
+            disabled={disabledAllItem(filteredItems)}
           />
         </div>
       </div>
       <ChecklistItem
         items={filteredItems}
         showInput={showNewItemInput}
-        disabledItem={disabledItem}
-        handleChangeCheckbox={handleChangeCheckbox}
+        disabledAllItem={disabledAllItem}
         handleEditItem={handleEditItem}
-        handleUpdateItem={handleSubmitUpdateItem}
         handleChangeItem={handleChangeItem}
         handleBlurItem={handleBlurItem}
+        handleFocusItem={handleFocusItem}
+        handleUpdateItem={handleSubmitUpdateItem}
         errorMessages={errorMessages}
         shouldDisplayError={shouldDisplayError}
+        handleChangeCheckbox={handleChangeCheckbox}
       />
       <div className={showNewItemInput ? styles.newItem__visible : styles.newItem__hidden}>
         <AddNewItem

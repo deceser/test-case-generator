@@ -1,9 +1,9 @@
 import React from "react";
 
-import Header from "../../components/block/header";
-import Footer from "../../components/block/footer";
+import Header from "src/components/block/header";
+import Footer from "src/components/block/footer";
 
-import ProgressBar from "../../components/block/progressbar";
+import NavigationBar from "src/components/block/navigation";
 
 import styles from "./index.module.scss";
 
@@ -12,8 +12,8 @@ const DefaultLayout = ({ children, ...props }) => {
   return (
     <>
       <Header />
-      <div className={styles.progress}>
-        <ProgressBar />
+      <div className={styles.navigation}>
+        <NavigationBar />
       </div>
       <main className={styles.layout__default}>{children}</main>
       <Footer />

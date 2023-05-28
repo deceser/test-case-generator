@@ -2,9 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import Navbar from "../navbar";
-import Logo from "../../ui/logo";
+import Logo from "src/components/ui/logo";
 
-import SmallButton from "../../ui/buttons/smallbutton";
+import SmallButton from "src/components/ui/buttons/smallbutton";
 
 import styles from "./index.module.scss";
 

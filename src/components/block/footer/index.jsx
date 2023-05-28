@@ -1,10 +1,10 @@
 import React from "react";
 
-import Logo from "../../ui/logo";
+import Logo from "src/components/ui/logo";
 
-import TwitterSvg from "../../../assets/svg/TwitterSvg";
-import FacebookSvg from "../../../assets/svg/FacebookSvg";
-import InstagramSvg from "../../../assets/svg/InstagramSvg";
+import TwitterSvg from "src/assets/svg/TwitterSvg";
+import FacebookSvg from "src/assets/svg/FacebookSvg";
+import InstagramSvg from "src/assets/svg/InstagramSvg";
 
 import styles from "./index.module.scss";
 

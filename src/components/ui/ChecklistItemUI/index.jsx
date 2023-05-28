@@ -2,9 +2,9 @@ import React from "react";
 import TextareaAutosize from "react-textarea-autosize";
 
 import SvgButton from "../buttons/svgbutton";
-import EditSvg from "../../../assets/svg/EditSvg";
-import CheckSvg from "../../../assets/svg/CheckSvg";
-import CloseSvg from "../../../assets/svg/CloseSvg";
+import EditSvg from "src/assets/svg/EditSvg";
+import CheckSvg from "src/assets/svg/CheckSvg";
+import CloseSvg from "src/assets/svg/CloseSvg";
 import CheckBoxUi from "../checkbox";
 
 import styles from "./index.module.scss";
@@ -16,11 +16,12 @@ const ChecklistItemUI = ({ children, ...props }) => {
     value,
     onChange,
     onBlur,
+    onFocus,
     handleEditItem,
     readOnly,
     checked,
     showInput,
-    disabled,
+    disabledAllItem,
     handleChangeCheckbox,
     handleClearNewData,
     handleUpdateItem,
@@ -28,11 +29,12 @@ const ChecklistItemUI = ({ children, ...props }) => {
     shouldDisplayError,
   } = props;
 
-  const textareaRef = React.useRef(null);
+  const checklistItemRef = React.useRef(null);
 
   const handleEditButtonClick = () => {
-    if (textareaRef.current) {
-      const textarea = textareaRef.current;
+    if (checklistItemRef.current) {
+      const textarea = checklistItemRef.current;
+      textarea.disabled = !readOnly;
       textarea.focus();
       const textLength = textarea.value.length;
       textarea.setSelectionRange(textLength, textLength);
@@ -40,13 +42,14 @@ const ChecklistItemUI = ({ children, ...props }) => {
 
     handleEditItem();
   };
-
   const typeStyleItem = [styles.inputItemChecklist];
 
   if (readOnly && !checked) {
     typeStyleItem.push(styles.disabled);
   } else if (!readOnly) {
     typeStyleItem.push(styles.active);
+  } else if (disabledAllItem) {
+    typeStyleItem.push(styles.disabled);
   } else {
     typeStyleItem.push(styles.inputItemChecklist);
   }
@@ -56,22 +59,26 @@ const ChecklistItemUI = ({ children, ...props }) => {
       <div className={typeStyleItem.join(" ")}>
         <span className={styles.item__id}>{id}</span>
         <TextareaAutosize
+          disabled={readOnly}
           minRows={1}
-          maxLength={300}
           value={value}
           onChange={onChange}
           onBlur={onBlur}
-          readOnly={readOnly}
+          onFocus={onFocus}
           className={styles.item}
           placeholder="Type your item here..."
-          ref={textareaRef}
+          ref={checklistItemRef}
         />
         {readOnly ? (
           <div className={styles.item__buttons}>
-            <SvgButton disabled={showInput || disabled} onClick={handleEditButtonClick}>
+            <SvgButton disabled={showInput || disabledAllItem} onClick={handleEditButtonClick}>
               <EditSvg />
             </SvgButton>
-            <CheckBoxUi disabled={showInput || disabled} checked={checked} onChange={handleChangeCheckbox} />
+            <CheckBoxUi
+              disabled={showInput || disabledAllItem}
+              checked={checked}
+              onChange={handleChangeCheckbox}
+            />
           </div>
         ) : (
           <div className={styles.item__buttons}>

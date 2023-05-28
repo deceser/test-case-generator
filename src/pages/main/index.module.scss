@@ -1,16 +1,4 @@
-@import "../../styles/variables";
-.loaderSectionWrapper {
-  width: 100%;
-  // TODO :: Set real size instead -377px
-  height: calc(100vh - 377px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.checklistWrapper {
-  width: 100%;
-}
+@import "src/styles/variables";
 
 .main__page {
   padding: $padding-15;

@@ -1,7 +1,7 @@
 import React from "react";
 
 import SvgButton from "../buttons/svgbutton";
-import CloseSvg from "../../../assets/svg/CloseSvg";
+import CloseSvg from "src/assets/svg/CloseSvg";
 
 import styles from "./index.module.scss";
 
@@ -11,6 +11,7 @@ const TextFieldUi = ({ ...props }) => {
     value,
     onChange,
     onBlur,
+    onFocus,
     handleClearInput,
     disabled,
     error,
@@ -25,6 +26,7 @@ const TextFieldUi = ({ ...props }) => {
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        onFocus={onFocus}
         placeholder={placeholder}
         className={styles.textarea}
       />

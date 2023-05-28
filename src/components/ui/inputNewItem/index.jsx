@@ -2,14 +2,23 @@ import React from "react";
 import TextareaAutosize from "react-textarea-autosize";
 
 import SvgButton from "../buttons/svgbutton";
-import CheckSvg from "../../../assets/svg/CheckSvg";
-import CloseSvg from "../../../assets/svg/CloseSvg";
+import CheckSvg from "src/assets/svg/CheckSvg";
+import CloseSvg from "src/assets/svg/CloseSvg";
 
 import styles from "./index.module.scss";
 
 const InputNewItem = ({ children, ...props }) => {
-  const { value, onChange, addNewItem, handleHideInput, items, refInputNewItem, error, onBlur } =
-    props;
+  const {
+    value,
+    onChange,
+    addNewItem,
+    handleHideInput,
+    items,
+    refInputNewItem,
+    error,
+    onBlur,
+    onFocus,
+  } = props;
 
   return (
     <div className={styles.input__container}>
@@ -21,6 +30,7 @@ const InputNewItem = ({ children, ...props }) => {
           value={value}
           onChange={onChange}
           onBlur={onBlur}
+          onFocus={onFocus}
           className={styles.input__item}
           placeholder="Type your item here..."
         />
