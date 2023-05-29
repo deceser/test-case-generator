@@ -59,6 +59,22 @@ const AddNewItem = ({ ...props }) => {
     doValidation(event);
   };
 
+  // -=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  const handleOnMouseOut = () => {
+    console.log("handleOnMouseOut");
+    setIsDirty(true);
+    setSpecialCondition(true);
+  };
+
+  const handleOnMouseOver = () => {
+    console.log("handleOnMouseOver");
+    setIsDirty(false);
+    setSpecialCondition(false);
+  };
+
+  // -=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
   const handleHideInput = () => {
     setShowNewItemInput(!showNewItemInput);
     useInputNewItem.setValue("");
