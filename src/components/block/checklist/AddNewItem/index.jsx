@@ -17,15 +17,8 @@ const AddNewItem = ({ ...props }) => {
   const refInputNewItem = React.useRef(null);
   const useInputNewItem = useInput("", false);
 
-  const {
-    errorMessages,
-    validateRule,
-    isDirty,
-    setIsDirty,
-    isSpecialCondition,
-    setSpecialCondition,
-    resetErrors,
-  } = useValidation(validationRuleNewItem);
+  const { errorMessages, validateRule, isDirty, setIsDirty, isSpecialCondition, setSpecialCondition, resetErrors } =
+    useValidation(validationRuleNewItem);
 
   React.useEffect(() => {
     if (showNewItemInput && refInputNewItem.current) {
@@ -50,18 +43,19 @@ const AddNewItem = ({ ...props }) => {
 
   const handleNewItemChange = (event) => {
     useInputNewItem.onChange(event);
-    if (
-      (isSpecialCondition && event.target.value.length < 300) ||
-      (isSpecialCondition && event.target.value.length > 3)
-    ) {
+    if ((isSpecialCondition && event.target.value.length < 300) || (isSpecialCondition && event.target.value.length > 3)) {
       if (!isSpecialCondition) setSpecialCondition(true);
       doValidation(event);
     }
   };
+
   const handleNewItemBlur = (event) => {
     useInputNewItem.onChange(event);
-    if (event.target.value.length < 1);
-    setSpecialCondition(true);
+    if (event.target.value.length < 1 || 3) {
+      setSpecialCondition(true);
+      return;
+    }
+    setSpecialCondition(false);
     doValidation(event);
   };
 
@@ -103,9 +97,7 @@ const AddNewItem = ({ ...props }) => {
       onFocus={handleNewItemFocus}
       error={
         shouldDisplayError() &&
-        errorMessages.map((errorMessage, index) => (
-          <React.Fragment key={index}>{errorMessage}</React.Fragment>
-        ))
+        errorMessages.map((errorMessage, index) => <React.Fragment key={index}>{errorMessage}</React.Fragment>)
       }
     />
   );
