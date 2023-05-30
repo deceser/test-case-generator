@@ -15,7 +15,7 @@ const DefaultLayout = ({ children, ...props }) => {
 
   return (
     <>
-      <GoogleModalWrap></GoogleModalWrap>
+      {/* <GoogleModalWrap></GoogleModalWrap> */}
       <Header />
       <div className={styles.navigation}>
         <NavigationBar />
