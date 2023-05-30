@@ -1,0 +1,25 @@
+@import "src/styles/variables";
+
+.modalui {
+  position: fixed;
+  top: 0px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: none;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+  padding: 25px;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.modalui.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1;
+}
