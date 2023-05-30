@@ -15,7 +15,10 @@ const GoogleModalWrap = ({ children, ...props }) => {
 
   return (
     <div className={[styles.modalui, styles.active].join(" ")}>
-      <div className={styles.modalContent}>{children}</div>
+      <div className={styles.container}>
+        <div className={styles.modalContent}>{children}</div>
+        <button>CLODS</button>
+      </div>
     </div>
   );
 };
