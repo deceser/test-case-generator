@@ -1,23 +1,28 @@
 import React from "react";
 
+import SvgButton from "src/components/ui/buttons/svgbutton";
+import CloseSvg from "src/assets/svg/CloseSvg";
+
 import styles from "./GoogleModalWrap.module.scss";
 
 const GoogleModalWrap = ({ children, ...props }) => {
-  const { isCloseModal, setVisible } = props;
+  const { visible, isCloseModal, setVisible } = props;
 
   const visibleClass = [styles.modalui];
 
-  // if (setVisible) {
-  //   visibleClass.push(styles.active);
-  // } else if (setVisible === false) {
-  //   visibleClass.push(styles.closed);
-  // }
+  if (visible) {
+    visibleClass.push(styles.active);
+  }
 
   return (
-    <div className={[styles.modalui, styles.active].join(" ")}>
+    <div className={visibleClass.join(" ")}>
       <div className={styles.container}>
-        <div className={styles.modalContent}>{children}</div>
-        <button>CLODS</button>
+        <div>{children}</div>
+        <div className={styles.close}>
+          <SvgButton onClick={isCloseModal}>
+            <CloseSvg />
+          </SvgButton>
+        </div>
       </div>
     </div>
   );
