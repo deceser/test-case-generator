@@ -1,6 +1,6 @@
 import React from "react";
 
-import { roles } from "src/utils/data/selectRoles";
+import { roles } from "src/utils/data/selectRoles/roles";
 
 import SvgButton from "src/components/ui/buttons/svgbutton";
 import ArrowUpSvg from "src/assets/svg/ArrowUpSvg";
