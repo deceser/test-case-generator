@@ -9,29 +9,10 @@
   isolation: isolate;
 
   width: 480px;
-  height: 309px;
-  left: 812px;
-  top: 3827px;
+  height: max-content;
 
   background: linear-gradient(98.86deg, rgba(65, 65, 110, 0.4) -0.02%, rgba(51, 51, 51, 0.4) 99.98%), #111111;
   backdrop-filter: blur(50px);
 
   border-radius: 20px;
-
-  h3 {
-    width: 400px;
-    height: 27px;
-
-    /* H3 */
-
-    font-family: "Satoshi";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 38px;
-    line-height: 140%;
-
-    text-align: center;
-
-    color: #ffffff;
-  }
 }

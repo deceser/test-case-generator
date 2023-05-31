@@ -1,0 +1,18 @@
+@import "src/styles/variables";
+
+.singup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 40px;
+  gap: 15px;
+  isolation: isolate;
+
+  width: 480px;
+  height: max-content;
+
+  background: linear-gradient(98.86deg, rgba(65, 65, 110, 0.4) -0.02%, rgba(51, 51, 51, 0.4) 99.98%), #111111;
+  backdrop-filter: blur(50px);
+
+  border-radius: 20px;
+}

@@ -9,7 +9,7 @@ import SmallButton from "src/components/ui/buttons/smallbutton";
 import styles from "./index.module.scss";
 
 const Header = ({ ...props }) => {
-  const { handleLogInClick } = props;
+  const { handleLogInClick, handleSingUpClick } = props;
 
   return (
     <header id="generate" className={styles.header__wrapper}>
@@ -24,7 +24,9 @@ const Header = ({ ...props }) => {
           <SmallButton styleType="secondary" onClick={handleLogInClick}>
             Log in
           </SmallButton>
-          <SmallButton styleType="main">Sing up</SmallButton>
+          <SmallButton styleType="main" onClick={handleSingUpClick}>
+            Sing up
+          </SmallButton>
         </div>
       </div>
     </header>

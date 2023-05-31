@@ -39,7 +39,7 @@ const GoogleButton = ({ children, ...props }) => {
   };
 
   return (
-    <button className={styles.googlebutton}>
+    <button className={styles.googlebutton} onClick={google}>
       <span>
         <img src={GoogleIcon} alt="google" />
       </span>

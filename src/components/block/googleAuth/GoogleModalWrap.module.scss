@@ -11,10 +11,8 @@
 }
 
 .container {
-  // border: 2px solid red;
   display: flex;
   align-items: flex-start;
-
   position: absolute;
   top: 120px;
 
@@ -29,6 +27,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   z-index: 1;
 }
