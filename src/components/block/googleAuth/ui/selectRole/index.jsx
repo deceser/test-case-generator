@@ -25,15 +25,9 @@ const SelectRole = () => {
     <div className={styles.dropdown}>
       <div onClick={click} className={styles.dropdownBtn}>
         <span> {selectedProfession ? selectedProfession : "Select your profession"}</span>
-        {open ? (
-          <SvgButton onClick={click} className={styles.arrow}>
-            <ArrowUpSvg />
-          </SvgButton>
-        ) : (
-          <SvgButton onClick={click} className={styles.arrow}>
-            <ArrowDownSvg />
-          </SvgButton>
-        )}
+        <span className={`${styles.arrow} ${open ? styles.rotateUp : styles.rotateDown}`}>
+          <SvgButton onClick={click}>{open ? <ArrowUpSvg /> : <ArrowDownSvg />}</SvgButton>
+        </span>
       </div>
 
       <ul className={open ? styles.dropdownContent : styles.dropdownContent_hidden}>
