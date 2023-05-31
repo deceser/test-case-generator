@@ -31,16 +31,21 @@ const DefaultLayout = ({ children, ...props }) => {
 
   return (
     <>
-      <GoogleModalWrap visible={visibleLogIn} setVisible={setVisibleLogIn} isCloseModal={isCloseModal}>
+      <GoogleModalWrap
+        visible={visibleLogIn}
+        setVisible={setVisibleLogIn}
+        isCloseModal={isCloseModal}
+      >
         <LogIn />
       </GoogleModalWrap>
-      <GoogleModalWrap visible={visibleSingUp} setVisible={setVisibleSingUp} isCloseModal={isCloseModal}>
+      <GoogleModalWrap
+        visible={visibleSingUp}
+        setVisible={setVisibleSingUp}
+        isCloseModal={isCloseModal}
+      >
         <SingUp />
       </GoogleModalWrap>
       <Header handleLogInClick={handleLogInClick} handleSingUpClick={handleSingUpClick} />
-      {/* <div className={styles.navigation}>
-        <NavigationBar />
-      </div> */}
       <main className={styles.layout__default}>{children}</main>
       <Footer />
     </>

@@ -46,8 +46,15 @@ const MainPage = () => {
 
   const filteredItems = useFilterItems(showItem, items);
   const useRequireInput = useInput("");
-  const { errorMessages, validateRule, isDirty, setIsDirty, isSpecialCondition, setSpecialCondition, resetErrors } =
-    useValidation(validationRuleRequirementInput);
+  const {
+    errorMessages,
+    validateRule,
+    isDirty,
+    setIsDirty,
+    isSpecialCondition,
+    setSpecialCondition,
+    resetErrors,
+  } = useValidation(validationRuleRequirementInput);
 
   const handleClearInput = () => {
     useRequireInput.clearInput();
@@ -67,7 +74,10 @@ const MainPage = () => {
 
   const handleRequirementInputChange = (event) => {
     useRequireInput.onChange(event);
-    if ((isSpecialCondition && event.target.value.length < 2500) || (isSpecialCondition && event.target.value.length > 5)) {
+    if (
+      (isSpecialCondition && event.target.value.length < 2500) ||
+      (isSpecialCondition && event.target.value.length > 5)
+    ) {
       if (!isSpecialCondition) setSpecialCondition(true);
       doValidation(event);
     }
@@ -119,8 +129,8 @@ const MainPage = () => {
           </div>
           <div>
             <ParagraphUi>
-              Easily generate and export checklists and test cases. &nbsp; Get more relevant results by entering all the required
-              data. Find more information about &nbsp;
+              Easily generate and export checklists and test cases. &nbsp; Get more relevant results
+              by entering all the required data. Find more information about &nbsp;
               <NavLink>how it works</NavLink>
             </ParagraphUi>
           </div>
@@ -137,7 +147,9 @@ const MainPage = () => {
             refRequireInput={refRequireInput}
             error={
               shouldDisplayError() &&
-              errorMessages.map((errorMessage, index) => <React.Fragment key={index}>{errorMessage}</React.Fragment>)
+              errorMessages.map((errorMessage, index) => (
+                <React.Fragment key={index}>{errorMessage}</React.Fragment>
+              ))
             }
           />
           <DefaultButton
@@ -156,7 +168,12 @@ const MainPage = () => {
       {checklistId ? (
         <div id="checklist" className={styles.procesingblock}>
           <H3Ui>Test checklist</H3Ui>
-          <TextButton styleType="visible" onClick={handleDownload} icon={<ExportSvg />} disabled={statusActiveItems}>
+          <TextButton
+            styleType="visible"
+            onClick={handleDownload}
+            icon={<ExportSvg />}
+            disabled={statusActiveItems}
+          >
             Export checklist
           </TextButton>
         </div>
