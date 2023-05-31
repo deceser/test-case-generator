@@ -38,9 +38,9 @@ const DefaultLayout = ({ children, ...props }) => {
         <SingUp />
       </GoogleModalWrap>
       <Header handleLogInClick={handleLogInClick} handleSingUpClick={handleSingUpClick} />
-      <div className={styles.navigation}>
+      {/* <div className={styles.navigation}>
         <NavigationBar />
-      </div>
+      </div> */}
       <main className={styles.layout__default}>{children}</main>
       <Footer />
     </>

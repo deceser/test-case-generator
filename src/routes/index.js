@@ -1,7 +1,6 @@
+import HomePage from "../pages/home";
 import MainPage from "../pages/main";
-import UiPage from "../pages/ui";
 
-export const publicRoutes = [
-  { path: "/", component: MainPage },
-  { path: "/ui", component: UiPage },
-];
+export const privateRoutes = [{ path: "/", component: MainPage }];
+
+export const publicRoutes = [{ path: "/", component: HomePage }];

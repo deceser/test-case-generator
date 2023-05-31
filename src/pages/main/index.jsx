@@ -26,6 +26,7 @@ import Loader from "src/components/ui/loader";
 import CheckList from "src/components/block/checklist/list";
 
 import styles from "./index.module.scss";
+import NavigationBar from "src/components/block/navigation";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -146,6 +147,9 @@ const MainPage = () => {
           >
             Generate checklist
           </DefaultButton>
+        </div>
+        <div className={styles.navigation}>
+          <NavigationBar />
         </div>
       </div>
 
