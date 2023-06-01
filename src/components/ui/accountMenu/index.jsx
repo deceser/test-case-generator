@@ -5,7 +5,6 @@ import LineSvg from "src/assets/svg/LineSvg";
 import StarSvg from "src/assets/svg/StarSvg";
 
 import SvgButton from "src/components/ui/buttons/svgbutton";
-import DropDownAccount from "src/components/ui/dropDownAccount";
 
 import styles from "./index.module.scss";
 

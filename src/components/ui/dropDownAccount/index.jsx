@@ -11,6 +11,7 @@ import styles from "./index.module.scss";
 const Popover = () => {
   const [isUser, setIsUser] = React.useState(false);
   const [isToken, setIsToken] = React.useState(false);
+  const popoverRef = React.useRef(null);
 
   const handleUser = () => {
     setIsUser(!isUser);
@@ -22,8 +23,22 @@ const Popover = () => {
     setIsUser(false);
   };
 
+  const handleClickOutside = (event) => {
+    if (popoverRef.current && !popoverRef.current.contains(event.target)) {
+      setIsUser(false);
+      setIsToken(false);
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className={styles.popoverContainer}>
+    <div className={styles.popoverContainer} ref={popoverRef}>
       <AccountMenu handleUser={handleUser} handleToken={handleToken}>
         100
       </AccountMenu>
