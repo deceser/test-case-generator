@@ -7,7 +7,6 @@ import LogIn from "src/components/block/googleAuth/logIn";
 import SingUp from "src/components/block/googleAuth/singUp";
 
 import GoogleModalWrap from "src/components/block/googleAuth/GoogleModalWrap";
-import NavigationBar from "src/components/block/navigation";
 
 import styles from "./index.module.scss";
 

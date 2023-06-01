@@ -5,7 +5,6 @@ import Navbar from "../navbar";
 import Logo from "src/components/ui/logo";
 
 import SmallButton from "src/components/ui/buttons/smallbutton";
-import AccountMenu from "src/components/ui/accountMenu";
 import DropDownAccount from "src/components/ui/dropDownAccount";
 
 import styles from "./index.module.scss";
