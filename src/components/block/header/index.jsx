@@ -24,7 +24,7 @@ const Header = ({ ...props }) => {
           </NavLink>
           <Navbar />
         </div>
-        {user ? (
+        {!user ? (
           <div className={styles.header__right}>
             <SmallButton styleType="secondary" onClick={handleLogInClick}>
               Log in

@@ -46,6 +46,7 @@
 
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 10px;
+  animation: fade-in 0.5s ease-in-out;
 }
 
 .dropdownContent_hidden {
@@ -64,5 +65,16 @@ li {
   &:hover {
     color: #00cbbf;
     transition: ease-in-out 0.5s;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
