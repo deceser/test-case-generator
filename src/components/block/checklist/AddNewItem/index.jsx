@@ -51,14 +51,10 @@ const AddNewItem = ({ ...props }) => {
 
   const handleNewItemBlur = (event) => {
     useInputNewItem.onChange(event);
-    if (event.target.value.length < 1 || 3) {
-      setSpecialCondition(true);
-      return;
-    }
-    setSpecialCondition(false);
+    if (event.target.value.length);
+    setSpecialCondition(true);
     doValidation(event);
   };
-
   // -=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
   const handleOnMouseOut = () => {
