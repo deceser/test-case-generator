@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL = "https://api.qualyfid.ai";
+export const API_URL = import.meta.env.VITE_REACT_API_URL;
 
 const api = axios.create({
   baseURL: API_URL,

@@ -1,28 +1,27 @@
 import api from "../api";
-import { CHECKLIST_API_PATH } from "../api/apiPath";
 
 export default class {
   static async getChecklist() {
-    return api.get(`/${CHECKLIST_API_PATH}`);
+    return api.get(`/${import.meta.env.VITE_REACT_CHECKLIST_API_PATH}`);
   }
 
   static async getChecklistItems(id) {
-    return api.get(`/${CHECKLIST_API_PATH}/${id}/checks`);
+    return api.get(`/${import.meta.env.VITE_REACT_CHECKLIST_API_PATH}/${id}/checks`);
   }
 
   static async getChecklistId(id) {
-    return api.get(`/${CHECKLIST_API_PATH}/${id}`);
+    return api.get(`/${import.meta.env.VITE_REACT_CHECKLIST_API_PATH}/${id}`);
   }
 
   static async generateTestCase() {
-    return api.post(`/${CHECKLIST_API_PATH}/generate/testcaselist`);
+    return api.post(`/${import.meta.env.VITE_REACT_CHECKLIST_API_PATH}/generate/testcaselist`);
   }
 
   static async deleteChecklist(id) {
-    return api.delete(`/${CHECKLIST_API_PATH}/${id}`);
+    return api.delete(`/${import.meta.env.VITE_REACT_CHECKLIST_API_PATH}/${id}`);
   }
 
   static async toggleStatusAll(updatedItems) {
-    return api.put(`/${CHECKLIST_API_PATH}/update/checks`, updatedItems);
+    return api.put(`/${import.meta.env.VITE_REACT_CHECKLIST_API_PATH}/update/checks`, updatedItems);
   }
 }

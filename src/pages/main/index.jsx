@@ -78,7 +78,7 @@ const MainPage = () => {
 
   const handleRequirementInputBlur = (event) => {
     useRequireInput.onChange(event);
-    if (event.target.value.length) return;
+    if (event.target.value.length < 1) return;
     setSpecialCondition(true);
     doValidation(event);
   };
