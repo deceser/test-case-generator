@@ -8,7 +8,7 @@ const AuthGoogleComponent = () => {
   console.log(searchParams.get("qwa"), "searchPar");
 
   React.useEffect(() => {
-    // navigate("/");
+    navigate("/service");
   }, []);
 
   return <div>Loading...</div>;

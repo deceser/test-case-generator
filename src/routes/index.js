@@ -4,7 +4,7 @@ import AuthGoogleComponent from "../pages/AuthGoogleComponent";
 import UiPage from "../pages/ui";
 
 export const privateRoutes = [
-  { path: "/", component: MainPage },
+  { path: "/service", component: MainPage },
   { path: "auth/google", component: AuthGoogleComponent },
   { path: "/ui", component: UiPage },
 ];

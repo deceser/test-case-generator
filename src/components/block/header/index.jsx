@@ -18,7 +18,7 @@ const Header = ({ ...props }) => {
     <header id="generate" className={styles.header__wrapper}>
       <div className={styles.header}>
         <div className={styles.header__left}>
-          <NavLink to="/">
+          <NavLink to={!user ? "/service" : "/"}>
             <Logo />
           </NavLink>
           <Navbar />
