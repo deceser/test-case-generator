@@ -7,6 +7,7 @@ import { useInput } from "src/hooks/useInput";
 import { useValidation } from "src/hooks/useValidation";
 
 import { validationRuleNewItem } from "src/utils/validation/fields";
+import { maxLengthChecklistItem, minLengthChecklistItem, removeSpaceLinePattern } from "src/utils/validation/validRules";
 
 import InputNewItem from "src/components/ui/inputNewItem";
 
@@ -37,13 +38,16 @@ const AddNewItem = ({ ...props }) => {
 
   const handleNewItemFocus = (event) => {
     useInputNewItem.onChange(event);
-    if (event.target.value.length < 1);
+    if (event.target.value.length);
     doValidation(event);
   };
 
   const handleNewItemChange = (event) => {
     useInputNewItem.onChange(event);
-    if ((isSpecialCondition && event.target.value.length < 300) || (isSpecialCondition && event.target.value.length > 3)) {
+    if (
+      (isSpecialCondition && event.target.value.length < maxLengthChecklistItem) ||
+      (isSpecialCondition && event.target.value.length > minLengthChecklistItem)
+    ) {
       if (!isSpecialCondition) setSpecialCondition(true);
       doValidation(event);
     }
@@ -51,13 +55,25 @@ const AddNewItem = ({ ...props }) => {
 
   const handleNewItemBlur = (event) => {
     useInputNewItem.onChange(event);
-    if (event.target.value.length < 1 || 3) {
-      setSpecialCondition(true);
-      return;
-    }
-    setSpecialCondition(false);
+    if (event.target.value.length);
+    setSpecialCondition(true);
     doValidation(event);
   };
+  // -=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  const handleOnMouseOut = () => {
+    console.log("handleOnMouseOut");
+    setIsDirty(true);
+    setSpecialCondition(true);
+  };
+
+  const handleOnMouseOver = () => {
+    console.log("handleOnMouseOver");
+    setIsDirty(false);
+    setSpecialCondition(false);
+  };
+
+  // -=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
   const handleHideInput = () => {
     setShowNewItemInput(!showNewItemInput);
@@ -69,9 +85,9 @@ const AddNewItem = ({ ...props }) => {
   };
 
   const addItem = () => {
-    const trimmedValue = useInputNewItem.value.trim().replace(/\n\s+/g, "\n");
+    const trimmedValue = useInputNewItem.value.trim().replace(removeSpaceLinePattern, "\n");
     const item = { name: trimmedValue, checkListId: checklistId };
-    if (!trimmedValue || trimmedValue.length < 3 || trimmedValue.length > 300) {
+    if (!trimmedValue || trimmedValue.length < minLengthChecklistItem || trimmedValue.length > maxLengthChecklistItem) {
       setIsDirty(true);
       setSpecialCondition(true);
       validateRule(trimmedValue);
