@@ -6,6 +6,7 @@ import { toggleEdit, onChangeItemUpdate } from "src/redux/slices/itemSlice";
 
 import { useValidation } from "src/hooks/useValidation";
 import { validationRuleChecklistItem } from "src/utils/validation/fields";
+import { maxLengthChecklistItem, minLengthChecklistItem, removeSpaceLinePattern } from "src/utils/validation/validRules";
 
 import AddNewItem from "../AddNewItem";
 import ChecklistItem from "../ChecklistItem";
@@ -67,16 +68,16 @@ const CheckList = ({ ...props }) => {
     const item = { ...i, name: updatedValue };
     dispatch(onChangeItemUpdate(item));
 
-    if (isSpecialCondition || event.target.value.length > 3) {
+    if (isSpecialCondition || event.target.value.length > minLengthChecklistItem) {
       if (!isSpecialCondition) setSpecialCondition(true);
       doValidation(event);
     }
   };
 
   const handleSubmitUpdateItem = (i) => {
-    const trimmedValue = i.name.trim().replace(/\n\s+/g, "\n");
+    const trimmedValue = i.name.trim().replace(removeSpaceLinePattern, "\n");
     const item = { ...i, name: trimmedValue };
-    if (!trimmedValue || trimmedValue.length < 3 || trimmedValue.length > 300) {
+    if (!trimmedValue || trimmedValue.length < minLengthChecklistItem || trimmedValue.length > maxLengthChecklistItem) {
       setIsDirty(true);
       setSpecialCondition(true);
       validateRule(trimmedValue);

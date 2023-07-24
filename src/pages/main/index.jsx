@@ -11,6 +11,7 @@ import { useValidation } from "src/hooks/useValidation";
 
 import { downloadCVS } from "src/helpers/downloadFile";
 import { validationRuleRequirementInput } from "src/utils/validation/fields";
+import { maxLengthRequirementValue, minLengthRequirementValue } from "src/utils/validation/validRules";
 
 import H1Ui from "src/components/ui/fonts/h1";
 import H3Ui from "src/components/ui/fonts/h3";
@@ -66,7 +67,10 @@ const MainPage = () => {
 
   const handleRequirementInputChange = (event) => {
     useRequireInput.onChange(event);
-    if ((isSpecialCondition && event.target.value.length < 2500) || (isSpecialCondition && event.target.value.length > 5)) {
+    if (
+      (isSpecialCondition && event.target.value.length < maxLengthRequirementValue) ||
+      (isSpecialCondition && event.target.value.length > minLengthRequirementValue)
+    ) {
       if (!isSpecialCondition) setSpecialCondition(true);
       doValidation(event);
     }
@@ -86,7 +90,7 @@ const MainPage = () => {
   const userId = "9bc8519b-b7d3-4733-cb40-08db458c0aae";
 
   const handleSubmitRequirementText = () => {
-    if (useRequireInput.value.length < 5 || useRequireInput.value.length > 2500) {
+    if (useRequireInput.value.length < minLengthRequirementValue || useRequireInput.value.length > maxLengthRequirementValue) {
       setIsDirty(true);
       setSpecialCondition(true);
       validateRule(useRequireInput.value);
