@@ -19,8 +19,8 @@ Runs the app in the development mode.\
 
 ### `Congratulations! Application are ready to work.`a
 
-AI automation tools for generation test cases and checklists
-Introducing a groundbreaking Quality Assurance Automation solution, our AI-based testing tools leverage the power of OpenAI to revolutionize and optimize testing processes. Designed specifically for QA engineers, project managers, product owners, business analysts, outsourcing companies, and business owners, our service generates checklists and test cases, transforming your software testing experience.
+**AI automation tools for generation test cases and checklists
+Introducing a groundbreaking Quality Assurance Automation solution, our AI-based testing tools leverage the power of OpenAI to revolutionize and optimize testing processes. Designed specifically for QA engineers, project managers, product owners, business analysts, outsourcing companies, and business owners, our service generates checklists and test cases, transforming your software testing experience.**
 
 
 ![image](https://github.com/deceser/test-case-generator/assets/101974867/594dbc50-a094-49e4-921d-ad6a5e5cc8f8)
