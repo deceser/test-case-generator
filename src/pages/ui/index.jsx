@@ -19,6 +19,8 @@ import PlusSvg from "src/assets/svg/PlusSvg";
 import EyeSvg from "src/assets/svg/EyeSvg";
 import CheckBoxUi from "src/components/ui/checkbox";
 
+import Popover from "src/components/ui/dropDownAccount";
+
 import styles from "./index.module.scss";
 
 const UiPage = () => {
@@ -54,6 +56,10 @@ const UiPage = () => {
       </div>
       <div>{/* <ItemUi /> */}</div>
       <div>{/* <CheckList /> */}</div>
+
+      <div>
+        <Popover />
+      </div>
     </div>
   );
 };

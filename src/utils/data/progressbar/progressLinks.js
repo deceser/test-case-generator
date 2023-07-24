@@ -2,13 +2,13 @@ export const progressLinks = [
   {
     title: "generate",
     number: "01",
-    path: "/#generate",
+    path: "/service/#generate",
   },
 
   {
     title: "checklist",
     number: "02",
-    path: "/#checklist",
+    path: "/service/#checklist",
   },
 
   {

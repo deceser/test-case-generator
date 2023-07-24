@@ -18,23 +18,25 @@
     justify-items: center;
     justify-content: center;
     align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
     grid-auto-flow: row;
     width: 1410px;
     height: 850px;
-    gap: 150px;
 
-    grid-template-areas: "left right";
+    grid-template-areas: "left right navigation";
     grid-area: generateblock;
 
     .left {
       grid-area: left;
 
       height: 425px;
+      width: 500px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       gap: $gap-35;
+      margin-right: 150px;
     }
 
     .right {
@@ -45,6 +47,14 @@
       flex-direction: column;
       align-items: flex-end;
       gap: $gap-50;
+    }
+
+    .navigation {
+      grid-area: navigation;
+
+      position: fixed;
+      top: calc(470px - 80px);
+      right: 100px;
     }
   }
 
