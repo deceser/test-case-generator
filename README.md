@@ -1,4 +1,5 @@
-# Qualyfid app
+# test-case-generator
+
 
 These are instructions for installing the project on your local environment.
 
